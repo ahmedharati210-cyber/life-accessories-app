@@ -102,7 +102,6 @@ export default function RootLayout({
         </BagProvider>
         <Toaster
           position="top-center"
-          containerId="main-toaster"
           toastOptions={{
             duration: 3000,
             style: {
