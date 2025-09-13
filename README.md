@@ -1,36 +1,270 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# لايف أكسسوارز - Life Accessories
 
-## Getting Started
+متجر إكسسوارات عربي أنيق ومتطور مبني بـ Next.js 15 مع دعم كامل للغة العربية ودفع عند الاستلام.
 
-First, run the development server:
+## 🌟 المميزات
 
+- **تصميم عربي RTL**: واجهة مستخدم محسنة للغة العربية مع دعم كامل للنص من اليمين لليسار
+- **متجر إكسسوارات متكامل**: تصفح المنتجات، إضافة للحقيبة، وإتمام الطلب
+- **دفع عند الاستلام**: لا حاجة لبطاقات ائتمان أو حسابات بنكية
+- **توصيل محلي**: دعم مناطق ليبيا المختلفة مع حساب رسوم التوصيل
+- **تصميم متجاوب**: يعمل بشكل مثالي على جميع الأجهزة
+- **أداء عالي**: محسن للسرعة مع Next.js 15 و Vercel
+- **تخزين سحابي**: استخدام Vercel KV لتخزين الطلبات
+
+## 🛠️ التقنيات المستخدمة
+
+- **Frontend**: Next.js 15 (App Router), TypeScript, Tailwind CSS
+- **UI Components**: Lucide React (أيقونات), Framer Motion (حركات)
+- **Storage**: MongoDB (تخزين الطلبات)
+- **Analytics**: Vercel Analytics & Speed Insights
+- **Deployment**: Vercel
+
+## 🚀 البدء السريع
+
+### المتطلبات
+
+- Node.js 18+ 
+- npm أو pnpm أو yarn
+
+### التثبيت
+
+1. **استنساخ المشروع**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd life-accessories
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **تثبيت التبعيات**
+```bash
+npm install
+# أو
+pnpm install
+# أو
+yarn install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **تشغيل المشروع محلياً**
+```bash
+npm run dev
+# أو
+pnpm dev
+# أو
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **فتح المتصفح**
+افتح [http://localhost:3000](http://localhost:3000) في متصفحك
 
-## Learn More
+## 📁 هيكل المشروع
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (shop)/            # مجموعة صفحات المتجر
+│   │   ├── category/      # صفحات الفئات
+│   │   └── product/       # صفحات المنتجات
+│   ├── api/               # API Routes
+│   │   └── order/         # API الطلبات
+│   ├── bag/               # صفحة الحقيبة
+│   ├── checkout/          # صفحة إتمام الطلب
+│   ├── success/           # صفحة نجاح الطلب
+│   ├── layout.tsx         # التخطيط الرئيسي
+│   └── page.tsx           # الصفحة الرئيسية
+├── components/            # المكونات
+│   ├── ui/               # مكونات واجهة المستخدم الأساسية
+│   └── features/         # مكونات الميزات
+├── data/                 # ملفات البيانات
+│   ├── products.json     # بيانات المنتجات
+│   ├── categories.json   # بيانات الفئات
+│   └── areas.json        # بيانات المناطق
+├── hooks/                # React Hooks
+├── lib/                  # مكتبات مساعدة
+└── types.ts              # تعريفات TypeScript
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 الإعدادات
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### متغيرات البيئة
 
-## Deploy on Vercel
+أنشئ ملف `.env.local` في الجذر:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+# Vercel KV (مطلوب للإنتاج)
+KV_REST_API_URL=your_kv_url
+KV_REST_API_TOKEN=your_kv_token
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# اختياري: إشعارات البريد الإلكتروني
+RESEND_API_KEY=your_resend_key
+ORDERS_NOTIFICATION_TO=admin@example.com
+```
+
+### إعداد Vercel KV
+
+1. اذهب إلى [Vercel Dashboard](https://vercel.com/dashboard)
+2. اختر مشروعك
+3. اذهب إلى Storage → Create Database → KV
+4. انسخ `KV_REST_API_URL` و `KV_REST_API_TOKEN`
+5. أضفها إلى متغيرات البيئة
+
+## 📱 الصفحات والميزات
+
+### الصفحة الرئيسية
+- قسم البطل مع دعوة للعمل
+- عرض المنتجات المميزة
+- فئات المنتجات
+- ميزات المتجر
+
+### صفحات المنتجات
+- عرض تفصيلي للمنتج
+- معرض صور
+- إضافة للحقيبة
+- منتجات مشابهة
+
+### الحقيبة والطلبات
+- إدارة الحقيبة
+- تعديل الكميات
+- حساب المجموع
+- إتمام الطلب
+
+### نظام الطلبات
+- نموذج طلب شامل
+- اختيار المنطقة
+- حساب رسوم التوصيل
+- حفظ في Vercel KV
+
+## 🎨 التخصيص
+
+### الألوان والتصميم
+يمكنك تخصيص الألوان في `tailwind.config.ts`:
+
+```typescript
+theme: {
+  extend: {
+    colors: {
+      primary: {
+        DEFAULT: 'hsl(var(--primary))',
+        foreground: 'hsl(var(--primary-foreground))',
+      },
+      // ... ألوان أخرى
+    }
+  }
+}
+```
+
+### إضافة منتجات جديدة
+أضف منتجات جديدة في `src/data/products.json`:
+
+```json
+{
+  "id": "product-id",
+  "name": "اسم المنتج",
+  "nameEn": "Product Name",
+  "slug": "product-slug",
+  "description": "وصف المنتج",
+  "price": 100.0,
+  "category": "category-id",
+  "images": ["/images/product.jpg"],
+  "thumbnail": "/images/product-thumb.jpg",
+  "inStock": true,
+  "stock": 10,
+  "isNew": false,
+  "isFeatured": true,
+  "isOnSale": false
+}
+```
+
+### إضافة مناطق جديدة
+أضف مناطق جديدة في `src/data/areas.json`:
+
+```json
+{
+  "id": "area-id",
+  "name": "اسم المنطقة",
+  "nameEn": "Area Name",
+  "deliveryFee": 15,
+  "deliveryTime": "45-60 دقيقة",
+  "isAvailable": true
+}
+```
+
+## 🚀 النشر على Vercel
+
+### النشر التلقائي
+1. اربط مستودع GitHub مع Vercel
+2. أضف متغيرات البيئة في Vercel Dashboard
+3. انشر تلقائياً مع كل push
+
+### النشر اليدوي
+```bash
+# تثبيت Vercel CLI
+npm i -g vercel
+
+# تسجيل الدخول
+vercel login
+
+# النشر
+vercel
+
+# النشر للإنتاج
+vercel --prod
+```
+
+## 📊 المراقبة والتحليلات
+
+- **Vercel Analytics**: تتبع الزوار والتفاعل
+- **Speed Insights**: مراقبة الأداء
+- **Vercel KV**: تخزين الطلبات والبيانات
+
+## 🔒 الأمان
+
+- التحقق من صحة البيانات في API
+- تشفير البيانات الحساسة
+- حماية من CSRF
+- تنظيف المدخلات
+
+## 🐛 استكشاف الأخطاء
+
+### مشاكل شائعة
+
+1. **خطأ في Vercel KV**
+   - تأكد من صحة متغيرات البيئة
+   - تحقق من صلاحيات Vercel KV
+
+2. **مشاكل في الخطوط العربية**
+   - تأكد من تحميل خط Cairo
+   - تحقق من إعدادات RTL
+
+3. **مشاكل في الصور**
+   - تأكد من وجود الصور في مجلد `public`
+   - تحقق من مسارات الصور
+
+## 🤝 المساهمة
+
+1. Fork المشروع
+2. أنشئ فرع للميزة الجديدة (`git checkout -b feature/amazing-feature`)
+3. Commit التغييرات (`git commit -m 'Add amazing feature'`)
+4. Push للفرع (`git push origin feature/amazing-feature`)
+5. افتح Pull Request
+
+## 📄 الترخيص
+
+هذا المشروع مرخص تحت رخصة MIT - انظر ملف [LICENSE](LICENSE) للتفاصيل.
+
+## 📞 الدعم
+
+للحصول على الدعم أو الإبلاغ عن مشاكل:
+- افتح issue في GitHub
+- تواصل معنا عبر البريد الإلكتروني
+
+## 🙏 شكر وتقدير
+
+- [Next.js](https://nextjs.org/) - إطار العمل
+- [Tailwind CSS](https://tailwindcss.com/) - التصميم
+- [Lucide React](https://lucide.dev/) - الأيقونات
+- [Framer Motion](https://www.framer.com/motion/) - الحركات
+- [Vercel](https://vercel.com/) - الاستضافة والتخزين
+
+---
+
+**ملاحظة**: هذا المشروع مصمم خصيصاً للسوق الليبي مع دعم كامل للغة العربية ودفع عند الاستلام.

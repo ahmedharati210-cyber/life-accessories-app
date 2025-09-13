@@ -1,0 +1,14 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" rx="24" fill="url(#gradient)"/>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="96" cy="70" r="25" fill="#fbbf24" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="96" cy="70" r="18" fill="#fde047"/>
+  <rect x="60" y="110" width="72" height="12" rx="6" fill="white" opacity="0.9"/>
+  <rect x="70" y="130" width="52" height="8" rx="4" fill="white" opacity="0.7"/>
+  <text x="96" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">لايف</text>
+</svg>

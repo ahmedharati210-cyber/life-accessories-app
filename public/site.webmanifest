@@ -1,0 +1,22 @@
+{
+  "name": "لايف أكسسوارز - متجر الإكسسوارات الأنيقة",
+  "short_name": "لايف أكسسوارز",
+  "description": "اكتشف أحدث الإكسسوارات الأنيقة والعصرية. توصيل مجاني للطلبات الكبيرة. دفع عند الاستلام.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["shopping", "lifestyle", "fashion"]
+}

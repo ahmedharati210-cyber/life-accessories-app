@@ -1,0 +1,74 @@
+[
+  {
+    "id": "tripoli-center",
+    "name": "طرابلس - وسط المدينة",
+    "nameEn": "Tripoli - City Center",
+    "deliveryFee": 5,
+    "deliveryTime": "30-45 دقيقة",
+    "isAvailable": true
+  },
+  {
+    "id": "tripoli-souk-juma",
+    "name": "طرابلس - سوق الجمعة",
+    "nameEn": "Tripoli - Souk Juma",
+    "deliveryFee": 10,
+    "deliveryTime": "45-60 دقيقة",
+    "isAvailable": true
+  },
+  {
+    "id": "tripoli-abu-slim",
+    "name": "طرابلس - أبو سليم",
+    "nameEn": "Tripoli - Abu Slim",
+    "deliveryFee": 8,
+    "deliveryTime": "40-55 دقيقة",
+    "isAvailable": true
+  },
+  {
+    "id": "tripoli-hadba",
+    "name": "طرابلس - الهضبة",
+    "nameEn": "Tripoli - Hadba",
+    "deliveryFee": 12,
+    "deliveryTime": "50-70 دقيقة",
+    "isAvailable": true
+  },
+  {
+    "id": "tripoli-tajoura",
+    "name": "طرابلس - تاجوراء",
+    "nameEn": "Tripoli - Tajoura",
+    "deliveryFee": 15,
+    "deliveryTime": "60-80 دقيقة",
+    "isAvailable": true
+  },
+  {
+    "id": "benghazi-center",
+    "name": "بنغازي - وسط المدينة",
+    "nameEn": "Benghazi - City Center",
+    "deliveryFee": 20,
+    "deliveryTime": "2-3 ساعات",
+    "isAvailable": true
+  },
+  {
+    "id": "misrata-center",
+    "name": "مصراتة - وسط المدينة",
+    "nameEn": "Misrata - City Center",
+    "deliveryFee": 25,
+    "deliveryTime": "3-4 ساعات",
+    "isAvailable": true
+  },
+  {
+    "id": "zawiya-center",
+    "name": "الزاوية - وسط المدينة",
+    "nameEn": "Zawiya - City Center",
+    "deliveryFee": 18,
+    "deliveryTime": "2-3 ساعات",
+    "isAvailable": true
+  },
+  {
+    "id": "other-areas",
+    "name": "مناطق أخرى",
+    "nameEn": "Other Areas",
+    "deliveryFee": 30,
+    "deliveryTime": "4-6 ساعات",
+    "isAvailable": true
+  }
+]
