@@ -53,7 +53,7 @@ export async function PUT(
       );
     }
     
-    const result = await categories.updateOne(
+    await categories.updateOne(
       { _id: new ObjectId(id) },
       { $set: categoryData }
     );
@@ -101,7 +101,7 @@ export async function DELETE(
       );
     }
     
-    const result = await categories.deleteOne({ _id: new ObjectId(id) });
+    await categories.deleteOne({ _id: new ObjectId(id) });
     
     // Invalidate cache after deleting category
     cacheHelpers.invalidateByType('category', category.slug);

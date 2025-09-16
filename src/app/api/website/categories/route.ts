@@ -14,10 +14,10 @@ export async function GET() {
         cached: true
       });
       
-      // Add cache headers for browser caching
-      response.headers.set('Cache-Control', 'public, max-age=1800, s-maxage=1800, stale-while-revalidate=3600'); // 30 minutes cache, 1 hour stale
+      // Add cache headers for browser caching - much longer cache
+      response.headers.set('Cache-Control', 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=7200'); // 1 hour cache, 2 hours stale
       response.headers.set('X-Cache-Status', 'HIT');
-      response.headers.set('X-Cache-TTL', '1800');
+      response.headers.set('X-Cache-TTL', '3600');
       
       return response;
     }
@@ -68,10 +68,10 @@ export async function GET() {
       cached: false
     });
     
-    // Add cache headers for browser caching
-    response.headers.set('Cache-Control', 'public, max-age=1800, s-maxage=1800, stale-while-revalidate=3600'); // 30 minutes cache, 1 hour stale
+    // Add cache headers for browser caching - much longer cache
+    response.headers.set('Cache-Control', 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=7200'); // 1 hour cache, 2 hours stale
     response.headers.set('X-Cache-Status', 'MISS');
-    response.headers.set('X-Cache-TTL', '1800');
+    response.headers.set('X-Cache-TTL', '3600');
     
     return response;
   } catch (error) {

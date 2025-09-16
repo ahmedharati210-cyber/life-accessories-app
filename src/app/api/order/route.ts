@@ -115,17 +115,41 @@ export async function POST(request: NextRequest) {
     }
     
     // Save order to MongoDB
-    const { orders } = await getCollections();
+    const { orders, products } = await getCollections();
+    
+    // Fetch actual product names from database
+    const productIds = body.items.map(item => item.id);
+    console.log('Fetching products for IDs:', productIds);
+    
+    // Convert string IDs to ObjectIds
+    const { ObjectId } = require('mongodb');
+    const objectIds = productIds.map(id => {
+      try {
+        return new ObjectId(id);
+      } catch (error) {
+        console.error('Invalid ObjectId:', id, error);
+        return null;
+      }
+    }).filter(Boolean);
+    
+    const productDocs = await products.find({ _id: { $in: objectIds } }).toArray();
+    console.log('Found products:', productDocs.map(p => ({ id: p._id.toString(), name: p.name })));
+    const productMap = new Map(productDocs.map(p => [p._id.toString(), p]));
     
     const orderData = {
-      orderNumber: `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`,
-      items: body.items.map(item => ({
-        id: item.id,
-        name: `Product ${item.id}`, // We'll get the actual product name from the products collection
-        quantity: item.qty,
-        unitPrice: item.unitPrice,
-        total: item.qty * item.unitPrice
-      })),
+      orderNumber: `#${Math.floor(Math.random() * 9000) + 1000}`,
+      items: body.items.map(item => {
+        const product = productMap.get(item.id);
+        const itemData = {
+          id: item.id,
+          name: product?.name || `Product ${item.id}`,
+          quantity: item.qty,
+          unitPrice: item.unitPrice,
+          total: item.qty * item.unitPrice
+        };
+        console.log('Item data:', itemData);
+        return itemData;
+      }),
       customer: {
         name: body.customer.name,
         email: body.customer.email || `${body.customer.name.toLowerCase().replace(/\s+/g, '.')}@example.com`,

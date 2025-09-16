@@ -33,7 +33,7 @@ export function DataProvider({ children }: DataProviderProps) {
     refresh: refreshProducts,
     invalidate: invalidateProducts
   } = useApiCache<{ success: boolean; data: Product[] }>('/api/website/products', {
-    ttl: 5 * 60 * 1000, // 5 minutes
+    ttl: 10 * 60 * 1000, // 10 minutes - longer cache
     staleWhileRevalidate: true
   });
   
@@ -44,12 +44,23 @@ export function DataProvider({ children }: DataProviderProps) {
     refresh: refreshCategories,
     invalidate: invalidateCategories
   } = useApiCache<{ success: boolean; data: Category[] }>('/api/website/categories', {
-    ttl: 30 * 60 * 1000, // 30 minutes
+    ttl: 60 * 60 * 1000, // 1 hour - much longer cache
     staleWhileRevalidate: true
   });
 
   const products = productsData?.success ? productsData.data : [];
   const categories = categoriesData?.success ? categoriesData.data : [];
+
+  // Add debug logging to see what's happening
+  console.log('🔍 DataContext Debug:', {
+    productsLoading,
+    categoriesLoading,
+    productsCount: products.length,
+    categoriesCount: categories.length,
+    productsCached: productsData?.success,
+    categoriesCached: categoriesData?.success
+  });
+
 
   const value: DataContextType = {
     products,

@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import Link from 'next/link';
 import Image from 'next/image';
 import { memo } from 'react';
 import { Product } from '@/types';
@@ -35,13 +34,13 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
       className="group"
       {...performanceProps}
     >
-      <Link 
-        href={`/product/${encodeSlug(product.slug)}`} 
-        className="block"
-        onClick={() => console.log('🔗 ProductCard: Navigating to product:', product.slug)}
+      <Card 
+        className="overflow-hidden hover:shadow-2xl transition-all duration-500 border-0 shadow-lg cursor-pointer h-full group-hover:shadow-purple-500/10"
+        onClick={() => {
+          window.location.href = `/product/${encodeSlug(product.slug)}`;
+        }}
       >
-        <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 border-0 shadow-lg cursor-pointer h-full group-hover:shadow-purple-500/10">
-          <div className="relative h-full flex flex-col">
+        <div className="relative h-full flex flex-col">
           {/* Product Image */}
           <div className="aspect-square relative overflow-hidden" style={{ position: 'relative' }}>
             <motion.div
@@ -187,26 +186,27 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
               className="mt-auto pt-4"
               transition={luxuryTransitions.snappy}
             >
-              <Link href={`/product/${encodeSlug(product.slug)}`}>
-                <Button
-                  className="w-full group/btn"
-                  variant="outline"
+              <Button
+                className="w-full group/btn"
+                variant="outline"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href = `/product/${encodeSlug(product.slug)}`;
+                }}
+              >
+                <motion.div
+                  className="flex items-center justify-center gap-2"
+                  whileHover={shouldReduceMotion ? {} : { x: -2 }}
+                  transition={luxuryTransitions.smooth}
                 >
-                  <motion.div
-                    className="flex items-center justify-center gap-2"
-                    whileHover={shouldReduceMotion ? {} : { x: -2 }}
-                    transition={luxuryTransitions.smooth}
-                  >
-                    <Eye className="w-4 h-4 group-hover/btn:scale-110 transition-transform duration-300" />
-                    <span>عرض المنتج</span>
-                  </motion.div>
-                </Button>
-              </Link>
+                  <Eye className="w-4 h-4 group-hover/btn:scale-110 transition-transform duration-300" />
+                  <span>عرض المنتج</span>
+                </motion.div>
+              </Button>
             </motion.div>
           </CardContent>
           </div>
         </Card>
-      </Link>
     </motion.div>
   );
 });

@@ -41,7 +41,7 @@ export async function PUT(
       );
     }
     
-    const result = await products.updateOne(
+    await products.updateOne(
       { _id: new ObjectId(id) },
       { $set: productData }
     );
@@ -89,7 +89,7 @@ export async function DELETE(
       );
     }
     
-    const result = await products.deleteOne({ _id: new ObjectId(id) });
+    await products.deleteOne({ _id: new ObjectId(id) });
     
     // Invalidate cache after deleting product
     cacheHelpers.invalidateByType('product', existingProduct.slug);

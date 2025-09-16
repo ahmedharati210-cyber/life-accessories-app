@@ -1,89 +1,26 @@
-'use client';
+import { getProducts, getCategories } from '@/lib/data';
+import { HomePageClient } from './HomePageClient';
 
-import { Hero } from '@/components/features/Hero';
-import { ProductCarousel } from '@/components/features/ProductCarousel';
-import { CategoryCard } from '@/components/features/CategoryCard';
-import { useState, useEffect } from 'react';
-import { useData } from '@/contexts/DataContext';
+// Enable static generation with revalidation
+export const revalidate = 300; // 5 minutes
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
+export default async function HomePage() {
+  // Fetch data server-side
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategories()
+  ]);
 
-export default function HomePage() {
-  const [headerHeight, setHeaderHeight] = useState('h-20');
-  
-  // Use shared data context
-  const { products, categories, productsLoading, categoriesLoading } = useData();
-  const loading = productsLoading || categoriesLoading;
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const handleScroll = () => {
-      setHeaderHeight(window.scrollY > 50 ? 'h-16' : 'h-20');
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  
   // Get hot products (new or on sale)
   const hotProducts = products
     .filter(product => product.isNew || product.isOnSale)
     .slice(0, 8);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">جاري تحميل الصفحة...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className={`min-h-screen bg-muted/30 transition-all duration-300 ${
-      headerHeight === 'h-16' ? 'pt-16' : 'pt-20'
-    }`}>
-      {/* Hero Section */}
-      <Hero />
-      
-      {/* Hot Products Carousel */}
-      <ProductCarousel
-        products={hotProducts}
-        title="المنتجات المميزة"
-        description="اكتشف أحدث وأروع المنتجات في مجموعتنا المختارة بعناية"
-        autoPlay={true}
-        autoPlayInterval={3000}
-        showDots={true}
-        showArrows={true}
-      />
-      
-      {/* Categories Section */}
-      <section className="pt-8 pb-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">تسوق حسب الفئة</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              استكشف مجموعاتنا المتنوعة من الإكسسوارات الأنيقة
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category) => {
-              const productCount = products.filter(p => p.category === category.id).length;
-              return (
-                <CategoryCard
-                  key={category.id}
-                  category={category}
-                  productCount={productCount}
-                />
-              );
-            })}
-          </div>
-        </div>
-      </section>
-    </div>
+    <HomePageClient 
+      products={products}
+      categories={categories}
+      hotProducts={hotProducts}
+    />
   );
 }

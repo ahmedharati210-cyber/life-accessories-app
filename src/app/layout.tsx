@@ -94,16 +94,16 @@ export default function RootLayout({
         <meta name="color-scheme" content="light only" />
       </head>
       <body className={`${cairo.variable} ${playfair.variable} ${inter.variable} antialiased`}>
-        <DataProvider>
-          <BagProvider>
+        <BagProvider>
+          <DataProvider>
             <MotionProvider>
               <ConditionalLayout>
                 {children}
               </ConditionalLayout>
             </MotionProvider>
             <MobileBagIndicator />
-          </BagProvider>
-        </DataProvider>
+          </DataProvider>
+        </BagProvider>
         <Toaster
           position="top-center"
           toastOptions={{
