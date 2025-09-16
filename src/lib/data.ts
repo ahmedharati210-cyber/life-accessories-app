@@ -99,9 +99,9 @@ export async function getProducts(): Promise<Product[]> {
         salePercentage,
         specifications: product.specifications || {},
         hasVariants: product.hasVariants || false,
-        variants: (product.variants || []).map(variant => ({
+        variants: (product.variants || []).map((variant: Record<string, unknown>) => ({
           ...variant,
-          inStock: (variant.stock || 0) > 0
+          inStock: (variant.stock as number || 0) > 0
         })),
         options: product.options || [],
         customerReviews: product.customerReviews || [],

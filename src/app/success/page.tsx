@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { CheckCircle, ShoppingBag, Home, Package, MessageCircle, Mail, Phone, Download, FileText } from 'lucide-react';
+import { CheckCircle, ShoppingBag, Home, Package, MessageCircle, Phone, Download, FileText } from 'lucide-react';
 import Link from 'next/link';
 import areasData from '@/data/areas.json';
 import { Area } from '@/types';

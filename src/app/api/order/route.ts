@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
     console.log('Fetching products for IDs:', productIds);
     
     // Convert string IDs to ObjectIds
-    const { ObjectId } = require('mongodb');
+    const { ObjectId } = await import('mongodb');
     const objectIds = productIds.map(id => {
       try {
         return new ObjectId(id);
@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
         console.error('Invalid ObjectId:', id, error);
         return null;
       }
-    }).filter(Boolean);
+    }).filter((id): id is InstanceType<typeof ObjectId> => id !== null);
     
     const productDocs = await products.find({ _id: { $in: objectIds } }).toArray();
     console.log('Found products:', productDocs.map(p => ({ id: p._id.toString(), name: p.name })));
