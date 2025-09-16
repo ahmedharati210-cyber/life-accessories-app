@@ -31,20 +31,23 @@ export async function PUT(
       updatedAt: new Date().toISOString()
     };
     
-    const result = await products.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: productData }
-    );
+    // Get product first to get the slug for cache invalidation
+    const existingProduct = await products.findOne({ _id: new ObjectId(id) });
     
-    if (result.matchedCount === 0) {
+    if (!existingProduct) {
       return NextResponse.json(
         { success: false, error: 'Product not found' },
         { status: 404 }
       );
     }
     
+    const result = await products.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: productData }
+    );
+    
     // Invalidate cache after updating product
-    cacheHelpers.invalidateAll();
+    cacheHelpers.invalidateByType('product', existingProduct.slug);
     
     return NextResponse.json({
       success: true,
@@ -76,17 +79,20 @@ export async function DELETE(
       );
     }
     
-    const result = await products.deleteOne({ _id: new ObjectId(id) });
+    // Get product first to get the slug for cache invalidation
+    const existingProduct = await products.findOne({ _id: new ObjectId(id) });
     
-    if (result.deletedCount === 0) {
+    if (!existingProduct) {
       return NextResponse.json(
         { success: false, error: 'Product not found' },
         { status: 404 }
       );
     }
     
+    const result = await products.deleteOne({ _id: new ObjectId(id) });
+    
     // Invalidate cache after deleting product
-    cacheHelpers.invalidateAll();
+    cacheHelpers.invalidateByType('product', existingProduct.slug);
     
     return NextResponse.json({
       success: true,

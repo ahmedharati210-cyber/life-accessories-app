@@ -2,39 +2,15 @@
 
 import { motion } from 'framer-motion';
 import { CategoryCard } from '@/components/features/CategoryCard';
-import { Product, Category } from '@/types';
 import { useState, useEffect } from 'react';
+import { useData } from '@/contexts/DataContext';
 
 export default function CategoriesPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
   const [headerHeight, setHeaderHeight] = useState('h-20');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        
-        // Fetch products
-        const productsResponse = await fetch('/api/website/products', { cache: 'no-store' });
-        const productsData = await productsResponse.json();
-        setProducts(productsData.success ? productsData.data : []);
-        
-        // Fetch categories
-        const categoriesResponse = await fetch('/api/website/categories', { cache: 'no-store' });
-        const categoriesData = await categoriesResponse.json();
-        setCategories(categoriesData.success ? categoriesData.data : []);
-        
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  // Use shared data context
+  const { products, categories, productsLoading, categoriesLoading } = useData();
+  const loading = productsLoading || categoriesLoading;
 
   useEffect(() => {
     const handleScroll = () => {

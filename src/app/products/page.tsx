@@ -3,43 +3,19 @@
 import { ProductCard } from '@/components/features/ProductCard';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { Product, Category } from '@/types';
 import { Search, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useData } from '@/contexts/DataContext';
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [headerHeight, setHeaderHeight] = useState('h-20');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        
-        // Fetch products
-        const productsResponse = await fetch('/api/website/products', { cache: 'no-store' });
-        const productsData = await productsResponse.json();
-        setProducts(productsData.success ? productsData.data : []);
-        
-        // Fetch categories
-        const categoriesResponse = await fetch('/api/website/categories', { cache: 'no-store' });
-        const categoriesData = await categoriesResponse.json();
-        setCategories(categoriesData.success ? categoriesData.data : []);
-        
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  // Use shared data context
+  const { products, categories, productsLoading, categoriesLoading } = useData();
+  const loading = productsLoading || categoriesLoading;
 
   useEffect(() => {
     if (typeof window === 'undefined') return;

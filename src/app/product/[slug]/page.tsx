@@ -11,6 +11,7 @@ import { ProductCard } from '@/components/features/ProductCard';
 import { useBag } from '@/contexts/BagContext';
 import { Product, ProductVariant } from '@/types';
 import { formatPrice, calcDiscountPercentage } from '@/lib/price';
+import { useProduct, useData } from '@/contexts/DataContext';
 import { ArrowLeft, Heart, Share2, Star, Truck, Shield, Award } from 'lucide-react';
 
 interface ProductPageProps {
@@ -20,16 +21,22 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { addItem, getItemQuantity } = useBag();
+  const [slug, setSlug] = useState<string>('');
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isAddingToBag, setIsAddingToBag] = useState(false);
   const [headerHeight, setHeaderHeight] = useState('h-20');
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const { addItem, getItemQuantity } = useBag();
+
+  useEffect(() => {
+    params.then(({ slug }) => setSlug(slug));
+  }, [params]);
+
+  // Use shared data context to get product and products
+  const { product, loading } = useProduct(slug);
+  const { products } = useData();
   
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -42,60 +49,14 @@ export default function ProductPage({ params }: ProductPageProps) {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        
-        // Resolve the slug first
-        const { slug: resolvedSlug } = await params;
-        
-        // Validate slug
-        if (!resolvedSlug || typeof resolvedSlug !== 'string') {
-          console.warn('⚠ Invalid slug:', resolvedSlug);
-          notFound();
-          return;
-        }
-
-        // Fetch products
-        const response = await fetch(`/api/website/products`, { cache: 'no-store' });
-        const { data: fetchedProducts } = await response.json();
-
-        if (!fetchedProducts) {
-          console.warn('⚠ No products found');
-          notFound();
-          return;
-        }
-
-        setProducts(fetchedProducts);
-        
-        // Find matching product (case-insensitive)
-        const foundProduct = fetchedProducts.find((p: Product) => 
-          p.slug.toLowerCase() === resolvedSlug.toLowerCase()
-        );
-        
-        console.log('🔍 Matching:', {
-          requestedSlug: resolvedSlug,
-          availableSlugs: fetchedProducts.map((p: Product) => p.slug),
-          found: !!foundProduct
-        });
-
-        if (!foundProduct) {
-          console.warn('⚠ Product not found for slug:', resolvedSlug);
-          notFound();
-          return;
-        }
-
-        setProduct(foundProduct);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-        notFound();
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [params]);
+    if (!slug || loading) return;
+    
+    if (!product) {
+      console.warn('⚠ Product not found for slug:', slug);
+      notFound();
+      return;
+    }
+  }, [slug, product, loading]);
 
   if (loading) {
     return (
@@ -114,7 +75,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   const quantityInBag = getItemQuantity(product.id);
   const relatedProducts = products
-    .filter(p => p.category === product.category && p.id !== product.id)
+    .filter((p: Product) => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
 
   // Calculate current price based on selected variant
@@ -496,7 +457,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             <div className="mt-16">
               <h2 className="text-2xl font-bold mb-8">منتجات مشابهة</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {relatedProducts.map((relatedProduct) => (
+                {relatedProducts.map((relatedProduct: Product) => (
                   <ProductCard key={relatedProduct.id} product={relatedProduct} />
                 ))}
               </div>

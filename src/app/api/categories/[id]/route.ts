@@ -43,20 +43,23 @@ export async function PUT(
       updatedAt: new Date().toISOString()
     };
     
-    const result = await categories.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: categoryData }
-    );
+    // Get category first to get the slug for cache invalidation
+    const existingCategory = await categories.findOne({ _id: new ObjectId(id) });
     
-    if (result.matchedCount === 0) {
+    if (!existingCategory) {
       return NextResponse.json(
         { success: false, error: 'Category not found' },
         { status: 404 }
       );
     }
     
-    // Invalidate all cache after updating category (affects both categories and products)
-    cacheHelpers.invalidateAll();
+    const result = await categories.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: categoryData }
+    );
+    
+    // Invalidate cache after updating category
+    cacheHelpers.invalidateByType('category', existingCategory.slug);
     
     return NextResponse.json({
       success: true,
@@ -88,17 +91,20 @@ export async function DELETE(
       );
     }
     
-    const result = await categories.deleteOne({ _id: new ObjectId(id) });
+    // Get category first to get the slug for cache invalidation
+    const category = await categories.findOne({ _id: new ObjectId(id) });
     
-    if (result.deletedCount === 0) {
+    if (!category) {
       return NextResponse.json(
         { success: false, error: 'Category not found' },
         { status: 404 }
       );
     }
     
-    // Invalidate all cache after deleting category (affects both categories and products)
-    cacheHelpers.invalidateAll();
+    const result = await categories.deleteOne({ _id: new ObjectId(id) });
+    
+    // Invalidate cache after deleting category
+    cacheHelpers.invalidateByType('category', category.slug);
     
     return NextResponse.json({
       success: true,

@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import { MobileBagIndicator } from '@/components/features/MobileBagIndicator';
 import { MotionProvider } from '@/components/providers/MotionProvider';
 import { BagProvider } from '@/contexts/BagContext';
+import { DataProvider } from '@/contexts/DataContext';
 import { ConditionalLayout } from '@/components/layout/ConditionalLayout';
 import "./globals.css";
 import '@/lib/preloadAnimations';
@@ -93,14 +94,16 @@ export default function RootLayout({
         <meta name="color-scheme" content="light only" />
       </head>
       <body className={`${cairo.variable} ${playfair.variable} ${inter.variable} antialiased`}>
-        <BagProvider>
-          <MotionProvider>
-            <ConditionalLayout>
-              {children}
-            </ConditionalLayout>
-          </MotionProvider>
-          <MobileBagIndicator />
-        </BagProvider>
+        <DataProvider>
+          <BagProvider>
+            <MotionProvider>
+              <ConditionalLayout>
+                {children}
+              </ConditionalLayout>
+            </MotionProvider>
+            <MobileBagIndicator />
+          </BagProvider>
+        </DataProvider>
         <Toaster
           position="top-center"
           toastOptions={{

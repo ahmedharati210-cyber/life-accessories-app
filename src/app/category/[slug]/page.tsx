@@ -5,9 +5,10 @@ import { useState, useEffect } from 'react';
 import { ProductCard } from '@/components/features/ProductCard';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { Product, Category } from '@/types';
 import { ArrowLeft, Filter } from 'lucide-react';
 import Link from 'next/link';
+import { useData } from '@/contexts/DataContext';
+import { Category } from '@/types';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -18,42 +19,14 @@ interface CategoryPageProps {
 export default function CategoryPage({ params }: CategoryPageProps) {
   const [slug, setSlug] = useState<string>('');
   const [category, setCategory] = useState<Category | null>(null);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     params.then(({ slug }) => setSlug(slug));
   }, [params]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        
-        // Fetch both products and categories in parallel
-        const [productsResponse, categoriesResponse] = await Promise.all([
-          fetch('/api/website/products', { cache: 'no-store' }),
-          fetch('/api/website/categories', { cache: 'no-store' })
-        ]);
-        
-        const [productsData, categoriesData] = await Promise.all([
-          productsResponse.json(),
-          categoriesResponse.json()
-        ]);
-        
-        setProducts(productsData.success ? productsData.data : []);
-        setCategories(categoriesData.success ? categoriesData.data : []);
-        
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  // Use shared data context
+  const { products, categories, productsLoading, categoriesLoading } = useData();
+  const loading = productsLoading || categoriesLoading;
 
   useEffect(() => {
     if (slug && categories.length > 0) {

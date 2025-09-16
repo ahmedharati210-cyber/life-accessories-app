@@ -3,39 +3,18 @@
 import { Hero } from '@/components/features/Hero';
 import { ProductCarousel } from '@/components/features/ProductCarousel';
 import { CategoryCard } from '@/components/features/CategoryCard';
-import { Product, Category } from '@/types';
 import { useState, useEffect } from 'react';
+import { useData } from '@/contexts/DataContext';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
   const [headerHeight, setHeaderHeight] = useState('h-20');
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        
-        // Fetch products
-        const productsResponse = await fetch('/api/website/products', { cache: 'no-store' });
-        const productsData = await productsResponse.json();
-        setProducts(productsData.success ? productsData.data : []);
-        
-        // Fetch categories
-        const categoriesResponse = await fetch('/api/website/categories', { cache: 'no-store' });
-        const categoriesData = await categoriesResponse.json();
-        setCategories(categoriesData.success ? categoriesData.data : []);
-        
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  
+  // Use shared data context
+  const { products, categories, productsLoading, categoriesLoading } = useData();
+  const loading = productsLoading || categoriesLoading;
 
   useEffect(() => {
     if (typeof window === 'undefined') return;

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getCollections } from '@/lib/database';
 import { cacheHelpers } from '@/lib/cache';
-import { ObjectId } from 'mongodb';
 
 // GET /api/website/products - Get all products for website
 export async function GET() {
@@ -16,8 +15,9 @@ export async function GET() {
       });
       
       // Add cache headers for browser caching
-      response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=60'); // 1 minute
+      response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=300, stale-while-revalidate=600'); // 5 minutes cache, 10 minutes stale
       response.headers.set('X-Cache-Status', 'HIT');
+      response.headers.set('X-Cache-TTL', '300');
       
       return response;
     }
@@ -93,8 +93,9 @@ export async function GET() {
     });
     
     // Add cache headers for browser caching
-    response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=60'); // 1 minute
+    response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=300, stale-while-revalidate=600'); // 5 minutes cache, 10 minutes stale
     response.headers.set('X-Cache-Status', 'MISS');
+    response.headers.set('X-Cache-TTL', '300');
     
     return response;
   } catch (error) {

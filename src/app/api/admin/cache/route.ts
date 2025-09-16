@@ -28,19 +28,9 @@ export async function DELETE(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type'); // 'products', 'categories', or 'all'
+    const identifier = searchParams.get('identifier'); // Optional identifier for specific items
     
-    switch (type) {
-      case 'products':
-        cacheHelpers.invalidateProducts();
-        break;
-      case 'categories':
-        cacheHelpers.invalidateCategories();
-        break;
-      case 'all':
-      default:
-        cacheHelpers.invalidateAll();
-        break;
-    }
+    cacheHelpers.invalidateByType(type as 'product' | 'category' | 'products' | 'categories' | 'all', identifier || undefined);
     
     return NextResponse.json({
       success: true,

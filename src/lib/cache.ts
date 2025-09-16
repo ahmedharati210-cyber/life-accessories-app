@@ -178,6 +178,42 @@ export const cacheHelpers = {
   },
 
   /**
+   * Set single category in cache
+   */
+  setCategory<T>(slug: string, data: T): void {
+    cache.set(cacheKeys.category(slug), data, CACHE_TTL.CATEGORY);
+  },
+
+  /**
+   * Invalidate specific product
+   */
+  invalidateProduct(slug: string): void {
+    cache.delete(cacheKeys.product(slug));
+    // Also invalidate the products list since it might contain this product
+    cache.delete(cacheKeys.products());
+  },
+
+  /**
+   * Invalidate specific category
+   */
+  invalidateCategory(slug: string): void {
+    cache.delete(cacheKeys.category(slug));
+    // Also invalidate the categories list
+    cache.delete(cacheKeys.categories());
+    // Invalidate products by this category
+    cache.clearPattern(`^products:category:${slug}`);
+  },
+
+  /**
+   * Invalidate products by category
+   */
+  invalidateProductsByCategory(categorySlug: string): void {
+    cache.delete(cacheKeys.productsByCategory(categorySlug));
+    // Also invalidate the main products list
+    cache.delete(cacheKeys.products());
+  },
+
+  /**
    * Invalidate all product-related cache
    */
   invalidateProducts(): void {
@@ -194,10 +230,56 @@ export const cacheHelpers = {
   },
 
   /**
+   * Invalidate cache by type with granular control
+   */
+  invalidateByType(type: 'product' | 'category' | 'products' | 'categories' | 'all', identifier?: string): void {
+    switch (type) {
+      case 'product':
+        if (identifier) {
+          this.invalidateProduct(identifier);
+        } else {
+          this.invalidateProducts();
+        }
+        break;
+      case 'category':
+        if (identifier) {
+          this.invalidateCategory(identifier);
+        } else {
+          this.invalidateCategories();
+        }
+        break;
+      case 'products':
+        this.invalidateProducts();
+        break;
+      case 'categories':
+        this.invalidateCategories();
+        break;
+      case 'all':
+      default:
+        this.invalidateAll();
+        break;
+    }
+  },
+
+  /**
    * Invalidate all cache
    */
   invalidateAll(): void {
     cache.clear();
+  },
+
+  /**
+   * Warm cache with data
+   */
+  warmCache<T>(key: string, data: T, ttl?: number): void {
+    cache.set(key, data, ttl);
+  },
+
+  /**
+   * Get cache statistics
+   */
+  getStats() {
+    return cache.getStats();
   },
 };
 

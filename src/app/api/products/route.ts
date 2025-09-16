@@ -41,8 +41,8 @@ export async function POST(request: NextRequest) {
     
     const result = await products.insertOne(productData);
     
-    // Invalidate all cache after creating product (affects both categories and products)
-    cacheHelpers.invalidateAll();
+    // Invalidate products cache after creating new product
+    cacheHelpers.invalidateByType('products');
     
     return NextResponse.json({
       success: true,

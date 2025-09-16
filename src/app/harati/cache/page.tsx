@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { Trash2, RefreshCw, Database, Clock, HardDrive } from 'lucide-react';
+import { Trash2, RefreshCw, Database, Clock, HardDrive, Zap } from 'lucide-react';
 
 interface CacheStats {
   total: number;
@@ -24,6 +24,7 @@ export default function CacheManagementPage() {
   const [stats, setStats] = useState<CacheStats | null>(null);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [warming, setWarming] = useState(false);
 
   const fetchStats = async () => {
     try {
@@ -61,6 +62,25 @@ export default function CacheManagementPage() {
     setRefreshing(true);
     await fetchStats();
     setRefreshing(false);
+  };
+
+  const warmCache = async (type: string = 'all') => {
+    setWarming(true);
+    try {
+      const response = await fetch(`/api/cache/warm?type=${type}`, {
+        method: 'POST',
+      });
+      const result = await response.json();
+      
+      if (result.success) {
+        // Refresh stats after warming
+        await fetchStats();
+      }
+    } catch (error) {
+      console.error('Error warming cache:', error);
+    } finally {
+      setWarming(false);
+    }
   };
 
   useEffect(() => {
@@ -137,6 +157,38 @@ export default function CacheManagementPage() {
         <Card className="p-6">
           <h3 className="text-lg font-semibold mb-4">Cache Actions</h3>
           <div className="space-y-3">
+            <Button
+              onClick={() => warmCache('all')}
+              disabled={warming}
+              className="w-full justify-start"
+              variant="default"
+            >
+              <Zap className="h-4 w-4 mr-2" />
+              {warming ? 'Warming Cache...' : 'Warm All Cache'}
+            </Button>
+            
+            <Button
+              onClick={() => warmCache('products')}
+              disabled={warming}
+              className="w-full justify-start"
+              variant="outline"
+            >
+              <Zap className="h-4 w-4 mr-2" />
+              Warm Products Cache
+            </Button>
+            
+            <Button
+              onClick={() => warmCache('categories')}
+              disabled={warming}
+              className="w-full justify-start"
+              variant="outline"
+            >
+              <Zap className="h-4 w-4 mr-2" />
+              Warm Categories Cache
+            </Button>
+            
+            <hr className="my-4" />
+            
             <Button
               onClick={() => clearCache('products')}
               disabled={loading}

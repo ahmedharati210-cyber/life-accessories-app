@@ -77,7 +77,7 @@ export function useCache<T>(
   } = options;
 
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start with loading true
   const [error, setError] = useState<Error | null>(null);
 
   const fetchData = useCallback(async (forceRefresh = false) => {
@@ -86,6 +86,7 @@ export function useCache<T>(
       const cachedData = frontendCache.get<T>(key);
       if (cachedData) {
         setData(cachedData);
+        setLoading(false); // Set loading to false when cached data is found
         
         // If data is stale and we have stale-while-revalidate, fetch in background
         if (staleWhileRevalidate && frontendCache.isStale(key)) {
@@ -157,7 +158,8 @@ export function useApiCache<T>(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const result = await response.json();
-    return result.data || result;
+    // Return the full result object as the API returns { success, data, cached }
+    return result as T;
   }, [url]);
 
   return useCache(`api:${url}`, fetcher, options);
