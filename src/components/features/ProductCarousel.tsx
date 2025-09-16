@@ -30,6 +30,7 @@ export function ProductCarousel({
 }: ProductCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [animations, setAnimations] = useState<AnimationChunk | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,12 +41,24 @@ export function ProductCarousel({
     getAnimationChunk('carousel').then(setAnimations);
   }, []);
 
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // sm breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const itemsPerView = 4;
   const maxSlides = Math.max(1, Math.ceil(products.length / itemsPerView));
 
-  // Auto-play functionality
+  // Auto-play functionality (disabled on mobile)
   useEffect(() => {
-    if (autoPlay && !isHovered && products.length > itemsPerView) {
+    if (autoPlay && !isHovered && !isMobile && products.length > itemsPerView) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prevIndex) => 
           prevIndex >= maxSlides - 1 ? 0 : prevIndex + 1
@@ -59,7 +72,7 @@ export function ProductCarousel({
         intervalRef.current = null;
       }
     };
-  }, [autoPlay, autoPlayInterval, isHovered, products.length, itemsPerView, maxSlides]);
+  }, [autoPlay, autoPlayInterval, isHovered, isMobile, products.length, itemsPerView, maxSlides]);
 
   const goToSlide = (index: number) => {
     if (index >= 0 && index < maxSlides) {
@@ -221,8 +234,8 @@ export function ProductCarousel({
             </motion.div>
           </LazyMotion>
 
-          {/* Navigation Arrows */}
-          {showArrows && maxSlides > 1 && (
+          {/* Navigation Arrows - Hidden on mobile */}
+          {showArrows && maxSlides > 1 && !isMobile && (
             <>
               <motion.div
                 whileHover={shouldReduceMotion ? {} : { scale: 1.1, x: 4 }}
@@ -265,8 +278,8 @@ export function ProductCarousel({
             </>
           )}
 
-          {/* Dots Indicator */}
-          {showDots && maxSlides > 1 && (
+          {/* Dots Indicator - Hidden on mobile */}
+          {showDots && maxSlides > 1 && !isMobile && (
             <motion.div 
               className="flex justify-center mt-12 space-x-3"
               initial={{ opacity: 0, y: 20 }}

@@ -11,7 +11,7 @@ import { ProductCard } from '@/components/features/ProductCard';
 import { useBag } from '@/contexts/BagContext';
 import { Product, ProductVariant } from '@/types';
 import { formatPrice, calcDiscountPercentage } from '@/lib/price';
-import { ArrowLeft, Heart, Share2, Star, Truck, Shield, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Heart, Share2, Star, Truck, Shield, Award } from 'lucide-react';
 
 interface ProductPageProps {
   params: Promise<{
@@ -412,8 +412,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                   <span>دفع آمن</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <RotateCcw className="w-4 h-4 text-primary" />
-                  <span>إرجاع مجاني</span>
+                  <Award className="w-4 h-4 text-primary" />
+                  <span>منتج عالي الجودة</span>
                 </div>
               </div>
             </div>

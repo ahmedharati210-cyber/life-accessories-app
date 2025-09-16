@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getCollections } from '@/lib/database';
 import { cacheHelpers } from '@/lib/cache';
+import { ObjectId } from 'mongodb';
 
 // GET /api/website/products - Get all products for website
 export async function GET() {
@@ -22,11 +23,25 @@ export async function GET() {
     }
 
     // Fetch from database
-    const { products } = await getCollections();
+    const { products, categories } = await getCollections();
     const allProducts = await products.find({}).toArray();
+    
+    // Fetch categories to resolve category names
+    const allCategories = await categories.find({}).toArray();
+    const categoryMap = new Map();
+    allCategories.forEach(cat => {
+      categoryMap.set(cat._id.toString(), {
+        name: cat.name,
+        slug: cat.slug
+      });
+    });
     
     // Transform database products to website format
     const websiteProducts = allProducts.map(product => {
+      // Resolve category name and slug from ObjectId
+      const categoryId = product.category;
+      const categoryInfo = categoryMap.get(categoryId) || { name: categoryId, slug: categoryId };
+      
       // Only consider it on sale if originalPrice exists, is greater than 0, and is greater than current price
       const isOnSale = product.originalPrice && product.originalPrice > 0 && product.originalPrice > product.price;
       const salePercentage = isOnSale && product.originalPrice 
@@ -42,8 +57,8 @@ export async function GET() {
         description: product.description,
         price: product.price,
         originalPrice: (product.originalPrice && product.originalPrice > 0) ? product.originalPrice : null,
-        category: product.category,
-        categorySlug: product.categorySlug || product.category,
+        category: categoryInfo.name,
+        categorySlug: categoryInfo.slug,
         featured: product.featured,
         inStock: product.inStock,
         stock: product.stock || 0,
