@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { AddressDropdown } from './AddressDropdown';
+import { CityAreaDropdown } from './CityAreaDropdown';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { useBag } from '@/contexts/BagContext';
 import { Area } from '@/types';
@@ -49,8 +49,10 @@ export function CheckoutForm({ areas }: CheckoutFormProps) {
     addressNote: ''
   });
 
+  // Calculate delivery fee using real price from areas list
   const deliveryFee = getDeliveryFee(formData.area, areas);
   const total = calcTotal(subtotal, deliveryFee);
+
 
   const validateFormData = (): boolean => {
     const validationErrors = validateForm(formData, commonRules);
@@ -248,14 +250,33 @@ export function CheckoutForm({ areas }: CheckoutFormProps) {
                 معلومات التوصيل
               </h3>
               
-              <AddressDropdown
-                areas={areas}
+              <CityAreaDropdown
                 value={formData.area}
                 onChange={(areaId) => handleInputChange('area', areaId)}
                 error={errors.area}
                 label="المنطقة"
-                placeholder="اختر منطقتك"
+                placeholder="اختر المدينة والمنطقة"
               />
+
+              {/* Delivery Information Display */}
+              {formData.area && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-medium text-gray-900">معلومات التوصيل</h4>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {areas.find(area => area.id === formData.area)?.deliveryTime || 'غير محدد'}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-blue-600">
+                        {deliveryFee > 0 ? formatPrice(deliveryFee) : 'مجاني'}
+                      </div>
+                      <div className="text-xs text-gray-500">رسوم التوصيل</div>
+                    </div>
+                  </div>
+                </div>
+              )}
               
               <Input
                 label="ملاحظات العنوان (اختياري)"

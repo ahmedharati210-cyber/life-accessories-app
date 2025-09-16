@@ -34,7 +34,8 @@ export function Footer() {
           </div>
 
           {/* Social & Contact */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <div className="flex flex-col items-center justify-center gap-4">
+            {/* Icons on top */}
             <div className="flex items-center gap-4">
             <Button 
                 variant="ghost" 
@@ -87,11 +88,14 @@ export function Footer() {
                 </a>
               </Button>
             </div>
-            <div className="text-sm text-muted-foreground">
-              <p>طرابلس، ليبيا</p>
-            </div>
-            <div className="text-sm text-muted-foreground">
-              <p> 0919900049 • 0929900049</p>
+            {/* Text below icons */}
+            <div className="text-center space-y-2">
+              <div className="text-sm text-muted-foreground">
+                <p>طرابلس، ليبيا</p>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                <p>0919900049 • 0929900049</p>
+              </div>
             </div>
           </div>
 
@@ -124,10 +128,16 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-purple-200/50 mt-12 pt-8 text-center">
-            <p className="text-sm text-muted-foreground">
+        <div className="border-t border-purple-200/50 mt-12 pt-8">
+          <div className="grid grid-cols-3 items-center gap-4">
+            <div></div>
+            <p className="text-sm text-muted-foreground text-center">
               © {currentYear} Life Accessories. جميع الحقوق محفوظة.
             </p>
+            <p className="text-sm text-muted-foreground text-right">
+              Created by <span className="font-bold text-purple-600">Harati</span>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

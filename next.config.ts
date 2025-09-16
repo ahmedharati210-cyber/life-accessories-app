@@ -39,6 +39,27 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
+  webpack: (config, { dev, isServer }) => {
+    // Optimize bundle splitting for animations
+    if (!dev && !isServer) {
+      config.optimization.splitChunks.cacheGroups = {
+        ...config.optimization.splitChunks.cacheGroups,
+        animations: {
+          name: 'animations',
+          test: /[\\/]lib[\\/]animations\.ts$/,
+          chunks: 'all',
+          priority: 20,
+        },
+        framerMotion: {
+          name: 'framer-motion',
+          test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+          chunks: 'all',
+          priority: 15,
+        },
+      };
+    }
+    return config;
+  },
   // Allow mobile access from local network
   allowedDevOrigins: [
     '127.0.0.1',

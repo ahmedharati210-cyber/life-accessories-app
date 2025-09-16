@@ -123,6 +123,8 @@ export interface Area {
   deliveryFee: number;
   deliveryTime: string;
   isAvailable: boolean;
+  cityCode: string;
+  areaCode?: number;
 }
 
 export interface CartItem {

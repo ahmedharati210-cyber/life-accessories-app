@@ -20,16 +20,16 @@ import {
 import { Button } from '@/components/ui/Button';
 
 const navigation = [
-  { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-  { name: 'Products', href: '/admin/products', icon: Package },
-  { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
-  { name: 'Stock', href: '/admin/stock', icon: Warehouse },
-  { name: 'Categories', href: '/admin/categories', icon: Tags },
-  { name: 'Media', href: '/admin/media', icon: ImageIcon },
-  { name: 'Customers', href: '/admin/customers', icon: Users },
-  { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
-  { name: 'Cache', href: '/admin/cache', icon: Database },
-  { name: 'Settings', href: '/admin/settings', icon: Settings },
+  { name: 'Dashboard', href: '/harati/dashboard', icon: LayoutDashboard },
+  { name: 'Products', href: '/harati/products', icon: Package },
+  { name: 'Orders', href: '/harati/orders', icon: ShoppingCart },
+  { name: 'Stock', href: '/harati/stock', icon: Warehouse },
+  { name: 'Categories', href: '/harati/categories', icon: Tags },
+  { name: 'Media', href: '/harati/media', icon: ImageIcon },
+  { name: 'Customers', href: '/harati/customers', icon: Users },
+  { name: 'Analytics', href: '/harati/analytics', icon: BarChart3 },
+  { name: 'Cache', href: '/harati/cache', icon: Database },
+  { name: 'Settings', href: '/harati/settings', icon: Settings },
 ];
 
 export function AdminSidebar() {

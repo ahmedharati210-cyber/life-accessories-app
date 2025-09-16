@@ -38,6 +38,8 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleScroll = () => {
       setHeaderHeight(window.scrollY > 50 ? 'h-16' : 'h-20');
     };

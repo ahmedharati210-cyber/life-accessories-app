@@ -53,26 +53,6 @@ export function getDeliveryFee(areaId: string, areas: Array<{ id: string; delive
   return area?.deliveryFee || 0;
 }
 
-/**
- * Calculate free delivery threshold
- */
-export function getFreeDeliveryThreshold(): number {
-  return 100; // Free delivery for orders over 100 LYD
-}
-
-/**
- * Check if order qualifies for free delivery
- */
-export function qualifiesForFreeDelivery(subtotal: number): boolean {
-  return subtotal >= getFreeDeliveryThreshold();
-}
-
-/**
- * Calculate final delivery fee (considering free delivery)
- */
-export function calcFinalDeliveryFee(subtotal: number, baseDeliveryFee: number): number {
-  return qualifiesForFreeDelivery(subtotal) ? 0 : baseDeliveryFee;
-}
 
 /**
  * Round to 2 decimal places

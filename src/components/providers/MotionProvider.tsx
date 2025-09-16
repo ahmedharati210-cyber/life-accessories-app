@@ -1,7 +1,8 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 interface MotionProviderProps {
   children: React.ReactNode;
@@ -9,17 +10,29 @@ interface MotionProviderProps {
 
 export function MotionProvider({ children }: MotionProviderProps) {
   const pathname = usePathname();
+  const shouldReduceMotion = useReducedMotion();
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Prevent hydration mismatch by only enabling animations after mount
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // During SSR and initial render, don't apply animations
+  if (!isMounted || shouldReduceMotion) {
+    return <>{children}</>;
+  }
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         transition={{
           duration: 0.3,
-          ease: 'easeInOut'
+          ease: "easeInOut"
         }}
       >
         {children}

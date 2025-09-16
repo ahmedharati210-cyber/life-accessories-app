@@ -1,82 +1,69 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { memo } from 'react';
 import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardContent } from '@/components/ui/Card';
-import { ShoppingCart, Heart, Check } from 'lucide-react';
+import { Heart, Eye } from 'lucide-react';
 import { formatPrice } from '@/lib/price';
-import { useBag } from '@/contexts/BagContext';
+import { 
+  fadeInUp, 
+  hoverLift, 
+  luxuryTransitions,
+  performanceProps
+} from '@/lib/animations';
 
 interface ProductCardProps {
   product: Product;
-  onAddToBag?: (product: Product) => void;
 }
 
-export function ProductCard({ product, onAddToBag }: ProductCardProps) {
-  const { addItem, getItemQuantity, isLoaded } = useBag();
-  const quantityInBag = getItemQuantity(product.id);
-  const [isAdding, setIsAdding] = useState(false);
-  const [justAdded, setJustAdded] = useState(false);
-
-  // Handle success animation timing
-  useEffect(() => {
-    if (justAdded) {
-      const timer = setTimeout(() => setJustAdded(false), 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [justAdded]);
-
-  // Handle adding state reset
-  useEffect(() => {
-    if (isAdding) {
-      const timer = setTimeout(() => setIsAdding(false), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [isAdding]);
-
-  const handleAddToBag = () => {
-    if (isAdding) return;
-    
-    setIsAdding(true);
-    addItem(product, 1);
-    onAddToBag?.(product);
-    
-    // Show success animation
-    setJustAdded(true);
-  };
+export const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
+      variants={fadeInUp}
+      initial={false}
+      animate="visible"
+      whileHover={shouldReduceMotion ? {} : hoverLift.whileHover}
+      whileTap={shouldReduceMotion ? {} : hoverLift.whileTap}
       className="group"
+      {...performanceProps}
     >
       <Link 
         href={`/product/${product.slug}`} 
         className="block"
         onClick={() => console.log('🔗 ProductCard: Navigating to product:', product.slug)}
       >
-        <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-lg cursor-pointer">
-        <div className="relative">
+        <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 border-0 shadow-lg cursor-pointer h-full group-hover:shadow-purple-500/10">
+          <div className="relative h-full flex flex-col">
           {/* Product Image */}
-          <div className="aspect-square relative overflow-hidden">
-            <Image
-              src={product.thumbnail}
-              alt={product.name}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+          <div className="aspect-square relative overflow-hidden" style={{ position: 'relative' }}>
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+              transition={luxuryTransitions.smooth}
+              className="w-full h-full"
+            >
+              <Image
+                src={product.thumbnail}
+                alt={product.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </motion.div>
             
             {/* Overlay */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
+            <motion.div 
+              className="absolute inset-0 bg-black/0 group-hover:bg-black/20"
+              initial={{ opacity: 0 }}
+              whileHover={shouldReduceMotion ? {} : { opacity: 1 }}
+              transition={luxuryTransitions.smooth}
+            />
             
             {/* Badges */}
             <div className="absolute top-3 right-3 flex flex-col gap-2">
@@ -85,7 +72,7 @@ export function ProductCard({ product, onAddToBag }: ProductCardProps) {
                   جديد
                 </Badge>
               )}
-              {product.isOnSale && product.salePercentage && (
+              {product.isOnSale && product.salePercentage && product.salePercentage > 0 && (
                 <Badge variant="destructive" className="text-xs">
                   -{product.salePercentage}%
                 </Badge>
@@ -107,25 +94,41 @@ export function ProductCard({ product, onAddToBag }: ProductCardProps) {
             </div>
             
             {/* Quick Actions */}
-            <div className="absolute top-3 left-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <Button
-                size="icon"
-                variant="secondary"
-                className="w-8 h-8 rounded-full shadow-lg"
+            <motion.div 
+              className="absolute top-3 left-3 flex flex-col gap-2"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileHover={shouldReduceMotion ? {} : { opacity: 1, scale: 1 }}
+              transition={luxuryTransitions.smooth}
+            >
+              <motion.div
+                whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+                transition={luxuryTransitions.snappy}
               >
-                <Heart className="w-4 h-4" />
-              </Button>
-            </div>
+                <Button
+                  size="icon"
+                  variant="secondary"
+                  className="w-8 h-8 rounded-full shadow-lg backdrop-blur-sm bg-white/90 hover:bg-white"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // TODO: Implement wishlist functionality
+                  }}
+                >
+                  <Heart className="w-4 h-4" />
+                </Button>
+              </motion.div>
+            </motion.div>
           </div>
           
-          <CardContent className="p-4">
+          <CardContent className="p-4 flex-1 flex flex-col">
             {/* Product Info */}
-            <div className="space-y-2">
-              <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors">
+            <div className="space-y-2 flex-1">
+              <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors h-14 flex items-start">
                 {product.name}
               </h3>
               
-              <p className="text-sm text-muted-foreground line-clamp-2">
+              <p className="text-sm text-muted-foreground line-clamp-2 h-10 flex items-start">
                 {product.description}
               </p>
               
@@ -162,93 +165,50 @@ export function ProductCard({ product, onAddToBag }: ProductCardProps) {
                 )}
               </div>
               
-              {/* Stock Status */}
-              {!product.inStock ? (
-                <Badge variant="destructive" className="text-xs">
-                  غير متوفر
-                </Badge>
-              ) : product.stock < 10 ? (
-                <Badge variant="destructive" className="text-xs animate-pulse">
-                  فقط {product.stock} متبقي!
-                </Badge>
-              ) : null}
+              {/* Stock Status - Always reserve space */}
+              <div className="h-6 flex items-center">
+                {!product.inStock ? (
+                  <Badge variant="destructive" className="text-xs">
+                    غير متوفر
+                  </Badge>
+                ) : product.stock < 10 ? (
+                  <Badge variant="destructive" className="text-xs animate-pulse">
+                    فقط {product.stock} متبقي!
+                  </Badge>
+                ) : null}
+              </div>
             </div>
             
-            {/* Add to Bag Button */}
+            {/* View Product Button */}
             <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="mt-4 relative"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              className="mt-auto pt-4"
+              transition={luxuryTransitions.snappy}
             >
               <Button
+                className="w-full group/btn"
+                variant="outline"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  handleAddToBag();
+                  window.location.href = `/product/${product.slug}`;
                 }}
-                disabled={!product.inStock || isAdding || !isLoaded}
-                className="w-full relative overflow-hidden"
-                variant={quantityInBag > 0 ? "secondary" : "default"}
               >
-                <AnimatePresence mode="wait">
-                  {isAdding ? (
-                    <motion.div
-                      key="loading"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex items-center justify-center gap-2"
-                    >
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                      />
-                      <span>جاري الإضافة...</span>
-                    </motion.div>
-                  ) : justAdded ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      className="flex items-center justify-center gap-2"
-                    >
-                      <Check className="w-4 h-4" />
-                      <span>تمت الإضافة!</span>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="normal"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex items-center justify-center gap-2"
-                    >
-                      <ShoppingCart className="w-4 h-4" />
-                      {quantityInBag > 0 ? `في الحقيبة (${quantityInBag})` : 'أضف للحقيبة'}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <motion.div
+                  className="flex items-center justify-center gap-2"
+                  whileHover={shouldReduceMotion ? {} : { x: -2 }}
+                  transition={luxuryTransitions.smooth}
+                >
+                  <Eye className="w-4 h-4 group-hover/btn:scale-110 transition-transform duration-300" />
+                  <span>عرض المنتج</span>
+                </motion.div>
               </Button>
-              
-              {/* Success pulse effect */}
-              <AnimatePresence>
-                {justAdded && (
-                  <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 1.2, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 bg-green-500/20 rounded-md pointer-events-none"
-                  />
-                )}
-              </AnimatePresence>
             </motion.div>
           </CardContent>
-        </div>
+          </div>
         </Card>
       </Link>
     </motion.div>
   );
-}
+});

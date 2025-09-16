@@ -32,6 +32,8 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleScroll = () => {
       setHeaderHeight(window.scrollY > 50 ? 'h-16' : 'h-20');
     };
@@ -119,6 +121,10 @@ export default function ProductPage({ params }: ProductPageProps) {
   const currentPrice = selectedVariant?.price || product.price;
   const currentStock = selectedVariant?.stock || product.stock;
   const currentInStock = selectedVariant ? selectedVariant.inStock : product.inStock;
+  
+  // Check if we need a variant selection for products with variants
+  const needsVariantSelection = product.hasVariants && product.variants && product.variants.length > 0;
+  const hasValidVariantSelection = !needsVariantSelection || (selectedVariant && selectedVariant.stock > 0 && selectedVariant.inStock);
 
   // Handle option selection
   const handleOptionChange = (optionId: string, valueId: string) => {
@@ -258,7 +264,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                   )}
                 </div>
                 
-                {product.isOnSale && product.salePercentage && (
+                {product.isOnSale && product.salePercentage && product.salePercentage > 0 && (
                   <p className="text-sm text-green-600 font-medium">
                     خصم {product.salePercentage}% - وفر {formatPrice(calcDiscountPercentage(product.originalPrice || 0, currentPrice), product.currency)}
                   </p>
@@ -302,23 +308,51 @@ export default function ProductPage({ params }: ProductPageProps) {
               {product.options && product.options.length > 0 && (
                 <div className="space-y-4">
                   <h4 className="text-lg font-medium">اختر الخيارات:</h4>
+                  {needsVariantSelection && !hasValidVariantSelection && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                      <p className="text-sm text-amber-800">
+                        ⚠️ يرجى اختيار خيارات متاحة لإضافة المنتج للحقيبة
+                      </p>
+                    </div>
+                  )}
                   {product.options.map((option) => (
                     <div key={option.id}>
                       <h5 className="text-sm font-medium text-gray-700 mb-2">{option.name}</h5>
                       <div className="flex flex-wrap gap-2">
                         {option.values.map((value) => {
                           const isSelected = selectedOptions[option.id] === value.id;
+                          
+                          // Check if this value combination would result in an available variant
+                          const testOptions = {
+                            ...selectedOptions,
+                            [option.id]: value.id
+                          };
+                          
+                          const hasAvailableVariant = product.variants?.some(variant => 
+                            Object.entries(testOptions).every(([key, val]) => 
+                              variant.options[key] === val
+                            ) && variant.stock > 0 && variant.inStock
+                          ) || false;
+                          
+                          const isDisabled = !hasAvailableVariant && !isSelected;
+                          
                           return (
                             <button
                               key={value.id}
-                              onClick={() => handleOptionChange(option.id, value.id)}
+                              onClick={() => !isDisabled && handleOptionChange(option.id, value.id)}
+                              disabled={isDisabled}
                               className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all duration-200 ${
                                 isSelected
                                   ? 'border-blue-600 bg-blue-600 text-white shadow-md transform scale-105'
+                                  : isDisabled
+                                  ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
                                   : 'border-gray-300 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700'
                               }`}
                             >
                               {value.name}
+                              {isDisabled && (
+                                <span className="ml-1 text-xs">(غير متوفر)</span>
+                              )}
                             </button>
                           );
                         })}
@@ -337,19 +371,24 @@ export default function ProductPage({ params }: ProductPageProps) {
                     onChange={setQuantity}
                     min={1}
                     max={currentStock}
-                    disabled={!currentInStock}
+                    disabled={!currentInStock || !hasValidVariantSelection}
                   />
                 </div>
                 
                 <div className="flex gap-4">
                   <Button
                     onClick={handleAddToBag}
-                    disabled={!currentInStock || isAddingToBag}
+                    disabled={!currentInStock || !hasValidVariantSelection || isAddingToBag}
                     className="flex-1"
                     size="lg"
                     loading={isAddingToBag}
                   >
-                    {quantityInBag > 0 ? `أضف ${quantity} للحقيبة` : 'أضف للحقيبة'}
+                    {isAddingToBag 
+                      ? 'جاري الإضافة...' 
+                      : !hasValidVariantSelection 
+                        ? 'يرجى اختيار خيارات متاحة'
+                        : quantityInBag > 0 ? `أضف ${quantity} للحقيبة` : 'أضف للحقيبة'
+                    }
                   </Button>
                   
                   <Button variant="outline" size="icon" className="h-12 w-12">

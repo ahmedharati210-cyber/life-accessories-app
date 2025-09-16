@@ -3,72 +3,922 @@
     "id": "tripoli-center",
     "name": "طرابلس - وسط المدينة",
     "nameEn": "Tripoli - City Center",
-    "deliveryFee": 5,
-    "deliveryTime": "30-45 دقيقة",
-    "isAvailable": true
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP"
   },
   {
     "id": "tripoli-souk-juma",
     "name": "طرابلس - سوق الجمعة",
     "nameEn": "Tripoli - Souk Juma",
     "deliveryFee": 10,
-    "deliveryTime": "45-60 دقيقة",
-    "isAvailable": true
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 107
   },
   {
     "id": "tripoli-abu-slim",
     "name": "طرابلس - أبو سليم",
     "nameEn": "Tripoli - Abu Slim",
-    "deliveryFee": 8,
-    "deliveryTime": "40-55 دقيقة",
-    "isAvailable": true
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 88
   },
   {
     "id": "tripoli-hadba",
     "name": "طرابلس - الهضبة",
     "nameEn": "Tripoli - Hadba",
-    "deliveryFee": 12,
-    "deliveryTime": "50-70 دقيقة",
-    "isAvailable": true
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 94
   },
   {
     "id": "tripoli-tajoura",
     "name": "طرابلس - تاجوراء",
     "nameEn": "Tripoli - Tajoura",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 119
+  },
+  {
+    "id": "tripoli-salah-aldeen",
+    "name": "طرابلس - صلاح الدين",
+    "nameEn": "Tripoli - Salah Al-Deen",
     "deliveryFee": 15,
-    "deliveryTime": "60-80 دقيقة",
-    "isAvailable": true
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 95
+  },
+  {
+    "id": "tripoli-khala-farjan",
+    "name": "طرابلس - خلة الفرجان",
+    "nameEn": "Tripoli - Khala Farjan",
+    "deliveryFee": 15,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 96
+  },
+  {
+    "id": "tripoli-tariq-mashtal",
+    "name": "طرابلس - طريق المشتل",
+    "nameEn": "Tripoli - Tariq Mashtal",
+    "deliveryFee": 15,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 115
+  },
+  {
+    "id": "tripoli-ain-zara",
+    "name": "طرابلس - عين زارة",
+    "nameEn": "Tripoli - Ain Zara",
+    "deliveryFee": 15,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 119
+  },
+  {
+    "id": "tripoli-السياحية-70",
+    "name": "طرابلس - السياحية",
+    "nameEn": "Tripoli - السياحية",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 70
+  },
+  {
+    "id": "tripoli-حي-الأندلس-71",
+    "name": "طرابلس - حي الأندلس",
+    "nameEn": "Tripoli - حي الأندلس",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 71
+  },
+  {
+    "id": "tripoli-الظهرة-73",
+    "name": "طرابلس - الظهرة",
+    "nameEn": "Tripoli - الظهرة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 73
+  },
+  {
+    "id": "tripoli-زاوية-الدهماني-74",
+    "name": "طرابلس - زاوية الدهماني",
+    "nameEn": "Tripoli - زاوية الدهماني",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 74
+  },
+  {
+    "id": "tripoli-النوفليين-75",
+    "name": "طرابلس - النوفليين",
+    "nameEn": "Tripoli - النوفليين",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 75
+  },
+  {
+    "id": "tripoli-بن-عاشور-76",
+    "name": "طرابلس - بن عاشور",
+    "nameEn": "Tripoli - بن عاشور",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 76
+  },
+  {
+    "id": "tripoli-شارع-الجرابة-77",
+    "name": "طرابلس - شارع الجرابة",
+    "nameEn": "Tripoli - شارع الجرابة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 77
+  },
+  {
+    "id": "tripoli-شارع-الزاوية-78",
+    "name": "طرابلس - شارع الزاوية",
+    "nameEn": "Tripoli - شارع الزاوية",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 78
+  },
+  {
+    "id": "tripoli-شارع-الجمهورية-79",
+    "name": "طرابلس - شارع الجمهورية",
+    "nameEn": "Tripoli - شارع الجمهورية",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 79
+  },
+  {
+    "id": "tripoli-شارع-النصر-80",
+    "name": "طرابلس - شارع النصر",
+    "nameEn": "Tripoli - شارع النصر",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 80
+  },
+  {
+    "id": "tripoli---",
+    "name": "طرابلس - باب بن غشير",
+    "nameEn": "Tripoli - باب بن غشير",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 81
+  },
+  {
+    "id": "tripoli-قرقارش-82",
+    "name": "طرابلس - قرقارش",
+    "nameEn": "Tripoli - قرقارش",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 82
+  },
+  {
+    "id": "tripoli-غوط-الشعال-83",
+    "name": "طرابلس - غوط الشعال",
+    "nameEn": "Tripoli - غوط الشعال",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 83
+  },
+  {
+    "id": "tripoli-السراج-84",
+    "name": "طرابلس - السراج",
+    "nameEn": "Tripoli - السراج",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 84
+  },
+  {
+    "id": "tripoli-الدريبي-85",
+    "name": "طرابلس - الدريبي",
+    "nameEn": "Tripoli - الدريبي",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 85
+  },
+  {
+    "id": "tripoli-قرجي-86",
+    "name": "طرابلس - قرجي",
+    "nameEn": "Tripoli - قرجي",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 86
+  },
+  {
+    "id": "tripoli-قدح-87",
+    "name": "طرابلس - قدح",
+    "nameEn": "Tripoli - قدح",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 87
+  },
+  {
+    "id": "tripoli-الرياضية-89",
+    "name": "طرابلس - الرياضية",
+    "nameEn": "Tripoli - الرياضية",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 89
+  },
+  {
+    "id": "tripoli-الفلاح-90",
+    "name": "طرابلس - الفلاح",
+    "nameEn": "Tripoli - الفلاح",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 90
+  },
+  {
+    "id": "tripoli-غرغور-91",
+    "name": "طرابلس - غرغور",
+    "nameEn": "Tripoli - غرغور",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 91
+  },
+  {
+    "id": "tripoli-حي-الزهور-92",
+    "name": "طرابلس - حي الزهور",
+    "nameEn": "Tripoli - حي الزهور",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 92
+  },
+  {
+    "id": "tripoli-طريق-المطار-93",
+    "name": "طرابلس - طريق المطار",
+    "nameEn": "Tripoli - طريق المطار",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 93
+  },
+  {
+    "id": "tripoli-طريق-الشوك-97",
+    "name": "طرابلس - طريق الشوك",
+    "nameEn": "Tripoli - طريق الشوك",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 97
+  },
+  {
+    "id": "tripoli-الفرناج-98",
+    "name": "طرابلس - الفرناج",
+    "nameEn": "Tripoli - الفرناج",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 98
+  },
+  {
+    "id": "tripoli-الحي-الجامعي-99",
+    "name": "طرابلس - الحي الجامعي",
+    "nameEn": "Tripoli - الحي الجامعي",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 99
+  },
+  {
+    "id": "tripoli-سيدي-المصري-100",
+    "name": "طرابلس - سيدي المصري",
+    "nameEn": "Tripoli - سيدي المصري",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 100
+  },
+  {
+    "id": "tripoli-راس-حسن-101",
+    "name": "طرابلس - راس حسن",
+    "nameEn": "Tripoli - راس حسن",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 101
+  },
+  {
+    "id": "tripoli-زناتة-102",
+    "name": "طرابلس - زناتة",
+    "nameEn": "Tripoli - زناتة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 102
+  },
+  {
+    "id": "tripoli-جامع-الصقع-103",
+    "name": "طرابلس - جامع الصقع",
+    "nameEn": "Tripoli - جامع الصقع",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 103
+  },
+  {
+    "id": "tripoli-الهاني-104",
+    "name": "طرابلس - الهاني",
+    "nameEn": "Tripoli - الهاني",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 104
+  },
+  {
+    "id": "tripoli-عرادة-105",
+    "name": "طرابلس - عرادة",
+    "nameEn": "Tripoli - عرادة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 105
+  },
+  {
+    "id": "tripoli-الحشان-106",
+    "name": "طرابلس - الحشان",
+    "nameEn": "Tripoli - الحشان",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 106
+  },
+  {
+    "id": "tripoli-كشلاف-108",
+    "name": "طرابلس - كشلاف",
+    "nameEn": "Tripoli - كشلاف",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 108
+  },
+  {
+    "id": "tripoli-الغرارات-109",
+    "name": "طرابلس - الغرارات",
+    "nameEn": "Tripoli - الغرارات",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 109
+  },
+  {
+    "id": "tripoli-بوستة-110",
+    "name": "طرابلس - بوستة",
+    "nameEn": "Tripoli - بوستة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 110
+  },
+  {
+    "id": "tripoli-طريق-الشط-111",
+    "name": "طرابلس - طريق الشط",
+    "nameEn": "Tripoli - طريق الشط",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 111
+  },
+  {
+    "id": "tripoli-معيتيقة-112",
+    "name": "طرابلس - معيتيقة",
+    "nameEn": "Tripoli - معيتيقة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 112
+  },
+  {
+    "id": "tripoli-11-",
+    "name": "طرابلس - 11 يونيو",
+    "nameEn": "Tripoli - 11 يونيو",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 113
+  },
+  {
+    "id": "tripoli-السبعة-114",
+    "name": "طرابلس - السبعة",
+    "nameEn": "Tripoli - السبعة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 114
+  },
+  {
+    "id": "tripoli-حي-دمشق-116",
+    "name": "طرابلس - حي دمشق",
+    "nameEn": "Tripoli - حي دمشق",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 116
+  },
+  {
+    "id": "tripoli-ولي-العهد-117",
+    "name": "طرابلس - ولي العهد",
+    "nameEn": "Tripoli - ولي العهد",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 117
+  },
+  {
+    "id": "tripoli-السدرة-118",
+    "name": "طرابلس - السدرة",
+    "nameEn": "Tripoli - السدرة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 118
+  },
+  {
+    "id": "tripoli-طريق-السور-147",
+    "name": "طرابلس - طريق السور",
+    "nameEn": "Tripoli - طريق السور",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 147
+  },
+  {
+    "id": "tripoli-بوابة-الجبس-148",
+    "name": "طرابلس - بوابة الجبس",
+    "nameEn": "Tripoli - بوابة الجبس",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 148
+  },
+  {
+    "id": "tripoli-غابة-النصر-149",
+    "name": "طرابلس - غابة النصر",
+    "nameEn": "Tripoli - غابة النصر",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 149
+  },
+  {
+    "id": "tripoli-شارع-الصريم-159",
+    "name": "طرابلس - شارع الصريم",
+    "nameEn": "Tripoli - شارع الصريم",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 159
+  },
+  {
+    "id": "tripoli-فشلوم-698",
+    "name": "طرابلس - فشلوم",
+    "nameEn": "Tripoli - فشلوم",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 698
+  },
+  {
+    "id": "tripoli-المنصورة-700",
+    "name": "طرابلس - المنصورة",
+    "nameEn": "Tripoli - المنصورة",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 700
+  },
+  {
+    "id": "tripoli-عمر-المختار-702",
+    "name": "طرابلس - عمر المختار",
+    "nameEn": "Tripoli - عمر المختار",
+    "deliveryFee": 10,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "TIP",
+    "areaCode": 702
   },
   {
     "id": "benghazi-center",
     "name": "بنغازي - وسط المدينة",
     "nameEn": "Benghazi - City Center",
-    "deliveryFee": 20,
-    "deliveryTime": "2-3 ساعات",
-    "isAvailable": true
+    "deliveryFee": 30,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "BEN"
+  },
+  {
+    "id": "benghazi-ras-ubayda",
+    "name": "بنغازي - راس عبيدة",
+    "nameEn": "Benghazi - Ras Ubayda",
+    "deliveryFee": 30,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "BEN",
+    "areaCode": 122
+  },
+  {
+    "id": "benghazi-buzghiba",
+    "name": "بنغازي - بوزغيبة",
+    "nameEn": "Benghazi - Buzghiba",
+    "deliveryFee": 30,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "BEN",
+    "areaCode": 123
+  },
+  {
+    "id": "benghazi-salam",
+    "name": "بنغازي - حي السلام",
+    "nameEn": "Benghazi - Salam District",
+    "deliveryFee": 30,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "BEN",
+    "areaCode": 124
+  },
+  {
+    "id": "benghazi-thakins",
+    "name": "بنغازي - ثاكنس",
+    "nameEn": "Benghazi - Thakins",
+    "deliveryFee": 35,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "BEN",
+    "areaCode": 335
   },
   {
     "id": "misrata-center",
     "name": "مصراتة - وسط المدينة",
     "nameEn": "Misrata - City Center",
-    "deliveryFee": 25,
-    "deliveryTime": "3-4 ساعات",
-    "isAvailable": true
+    "deliveryFee": 20,
+    "deliveryTime": "يومين",
+    "isAvailable": true,
+    "cityCode": "MSR"
+  },
+  {
+    "id": "misrata-benghazi-street",
+    "name": "مصراتة - شارع بنغازي",
+    "nameEn": "Misrata - Benghazi Street",
+    "deliveryFee": 20,
+    "deliveryTime": "يومين",
+    "isAvailable": true,
+    "cityCode": "MSR",
+    "areaCode": 360
+  },
+  {
+    "id": "misrata-hilal-street",
+    "name": "مصراتة - شارع الهلال",
+    "nameEn": "Misrata - Hilal Street",
+    "deliveryFee": 20,
+    "deliveryTime": "يومين",
+    "isAvailable": true,
+    "cityCode": "MSR",
+    "areaCode": 361
   },
   {
     "id": "zawiya-center",
     "name": "الزاوية - وسط المدينة",
     "nameEn": "Zawiya - City Center",
-    "deliveryFee": 18,
-    "deliveryTime": "2-3 ساعات",
-    "isAvailable": true
+    "deliveryFee": 20,
+    "deliveryTime": "يومين",
+    "isAvailable": true,
+    "cityCode": "ZWY"
+  },
+  {
+    "id": "sabha-center",
+    "name": "سبها - وسط المدينة",
+    "nameEn": "Sabha - City Center",
+    "deliveryFee": 30,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "SBH"
+  },
+  {
+    "id": "darna-center",
+    "name": "درنة - وسط المدينة",
+    "nameEn": "Darna - City Center",
+    "deliveryFee": 35,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "DRN"
+  },
+  {
+    "id": "darna-fataih",
+    "name": "درنة - الفتائح",
+    "nameEn": "Darna - Fataih",
+    "deliveryFee": 35,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "DRN",
+    "areaCode": 647
+  },
+  {
+    "id": "darna-tamimi",
+    "name": "درنة - التميمي",
+    "nameEn": "Darna - Tamimi",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "DRN",
+    "areaCode": 667
+  },
+  {
+    "id": "darna-azzayat",
+    "name": "درنة - العزيات",
+    "nameEn": "Darna - Azzayat",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "DRN",
+    "areaCode": 669
+  },
+  {
+    "id": "darna-ras-teen",
+    "name": "درنة - رأس التين",
+    "nameEn": "Darna - Ras Teen",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "DRN",
+    "areaCode": 671
+  },
+  {
+    "id": "janzur",
+    "name": "جنزور",
+    "nameEn": "Janzur",
+    "deliveryFee": 15,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "JUZ"
+  },
+  {
+    "id": "sorman",
+    "name": "صرمان",
+    "nameEn": "Sorman",
+    "deliveryFee": 25,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "SUR"
+  },
+  {
+    "id": "sabratha",
+    "name": "صبراتة",
+    "nameEn": "Sabratha",
+    "deliveryFee": 25,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "SUB"
+  },
+  {
+    "id": "ajdabiya",
+    "name": "اجدابيا",
+    "nameEn": "Ajdabiya",
+    "deliveryFee": 30,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "EJT"
+  },
+  {
+    "id": "qasr-ben-ghashir",
+    "name": "قصر بن غشير",
+    "nameEn": "Qasr Ben Ghashir",
+    "deliveryFee": 20,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "GTIP"
+  },
+  {
+    "id": "murtad",
+    "name": "مطرد",
+    "nameEn": "Murtad",
+    "deliveryFee": 25,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "MTR"
+  },
+  {
+    "id": "al-abyar",
+    "name": "الابيار",
+    "nameEn": "Al Abyar",
+    "deliveryFee": 35,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "ALAQ"
+  },
+  {
+    "id": "wadi-rabie",
+    "name": "وادي الربيع",
+    "nameEn": "Wadi Rabie",
+    "deliveryFee": 20,
+    "deliveryTime": "نفس اليوم أو اليوم التالي",
+    "isAvailable": true,
+    "cityCode": "WTIP"
+  },
+  {
+    "id": "qalaa",
+    "name": "القلعة",
+    "nameEn": "Qalaa",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "GLA"
+  },
+  {
+    "id": "tiji",
+    "name": "تيجي",
+    "nameEn": "Tiji",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "TYG"
+  },
+  {
+    "id": "ubari",
+    "name": "أوباري",
+    "nameEn": "Ubari",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "AWB"
+  },
+  {
+    "id": "murzuq",
+    "name": "مرزق",
+    "nameEn": "Murzuq",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "MRZ"
+  },
+  {
+    "id": "yafran",
+    "name": "يفرن",
+    "nameEn": "Yafran",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "YFR"
+  },
+  {
+    "id": "ghat",
+    "name": "غات",
+    "nameEn": "Ghat",
+    "deliveryFee": 50,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "GAT"
+  },
+  {
+    "id": "rajban",
+    "name": "الرجبان",
+    "nameEn": "Rajban",
+    "deliveryFee": 45,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "RGB"
+  },
+  {
+    "id": "sabia",
+    "name": "السبيعة",
+    "nameEn": "Sabia",
+    "deliveryFee": 25,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "SPI"
+  },
+  {
+    "id": "jufra",
+    "name": "الجفرة",
+    "nameEn": "Jufra",
+    "deliveryFee": 35,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "JFR"
+  },
+  {
+    "id": "quba",
+    "name": "القبة",
+    "nameEn": "Quba",
+    "deliveryFee": 40,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "GOB"
+  },
+  {
+    "id": "warshefana-zahra",
+    "name": "ورشفانة الزهراء",
+    "nameEn": "Warshefana Zahra",
+    "deliveryFee": 20,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "WZH"
+  },
+  {
+    "id": "warshefana-saadiya",
+    "name": "ورشفانة الساعدية",
+    "nameEn": "Warshefana Saadiya",
+    "deliveryFee": 20,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "WSD"
+  },
+  {
+    "id": "warshefana-aziziya",
+    "name": "ورشفانة العزيزية",
+    "nameEn": "Warshefana Aziziya",
+    "deliveryFee": 20,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "WAZ"
   },
   {
     "id": "other-areas",
     "name": "مناطق أخرى",
     "nameEn": "Other Areas",
-    "deliveryFee": 30,
-    "deliveryTime": "4-6 ساعات",
-    "isAvailable": true
+    "deliveryFee": 50,
+    "deliveryTime": "3 أيام أو أكثر",
+    "isAvailable": true,
+    "cityCode": "OTHER"
   }
 ]

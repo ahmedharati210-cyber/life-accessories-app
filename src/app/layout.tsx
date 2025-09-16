@@ -8,6 +8,7 @@ import { MotionProvider } from '@/components/providers/MotionProvider';
 import { BagProvider } from '@/contexts/BagContext';
 import { ConditionalLayout } from '@/components/layout/ConditionalLayout';
 import "./globals.css";
+import '@/lib/preloadAnimations';
 
 const cairo = Cairo({
   variable: "--font-cairo",

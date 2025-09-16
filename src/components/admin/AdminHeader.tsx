@@ -1,10 +1,33 @@
 'use client';
 
-import { Bell, Search, User } from 'lucide-react';
+import { Bell, Search, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export function AdminHeader() {
+  const router = useRouter();
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      const response = await fetch('/api/admin/auth/logout', {
+        method: 'POST',
+      });
+      
+      if (response.ok) {
+        router.push('/harati-login');
+        router.refresh();
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setLoggingOut(false);
+    }
+  };
+
   return (
     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
       {/* Search */}
@@ -39,6 +62,21 @@ export function AdminHeader() {
             <p className="text-sm font-medium text-gray-900">Admin User</p>
             <p className="text-xs text-gray-500">admin@lifeaccessories.com</p>
           </div>
+          
+          {/* Logout Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleLogout}
+            disabled={loggingOut}
+            className="ml-2 text-gray-500 hover:text-red-600 hover:bg-red-50"
+          >
+            {loggingOut ? (
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-500"></div>
+            ) : (
+              <LogOut className="h-4 w-4" />
+            )}
+          </Button>
         </div>
       </div>
     </div>

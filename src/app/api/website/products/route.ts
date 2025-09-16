@@ -27,7 +27,8 @@ export async function GET() {
     
     // Transform database products to website format
     const websiteProducts = allProducts.map(product => {
-      const isOnSale = product.originalPrice && product.originalPrice > product.price;
+      // Only consider it on sale if originalPrice exists, is greater than 0, and is greater than current price
+      const isOnSale = product.originalPrice && product.originalPrice > 0 && product.originalPrice > product.price;
       const salePercentage = isOnSale && product.originalPrice 
         ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
         : 0;
@@ -40,7 +41,7 @@ export async function GET() {
         slug: product.slug,
         description: product.description,
         price: product.price,
-        originalPrice: product.originalPrice,
+        originalPrice: (product.originalPrice && product.originalPrice > 0) ? product.originalPrice : null,
         category: product.category,
         categorySlug: product.categorySlug || product.category,
         featured: product.featured,

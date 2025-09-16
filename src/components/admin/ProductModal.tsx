@@ -25,7 +25,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
     slug: '',
     description: '',
     price: 0,
-    originalPrice: 0,
+    originalPrice: undefined,
     category: '',
     featured: false,
     inStock: true,
@@ -65,7 +65,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
     }
   }, [product]);
 
-  const handleInputChange = (field: keyof AdminProduct, value: string | number | boolean) => {
+  const handleInputChange = (field: keyof AdminProduct, value: string | number | boolean | undefined) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -107,17 +107,13 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
   const addSizeOption = () => {
     const newOption: ProductOption = {
       id: `size-${Date.now()}`,
-      name: 'Size',
+      name: 'الحجم',
       nameEn: 'Size',
       values: [
         { id: 'size-6', name: '6', nameEn: '6' },
-        { id: 'size-6.5', name: '6.5', nameEn: '6.5' },
         { id: 'size-7', name: '7', nameEn: '7' },
-        { id: 'size-7.5', name: '7.5', nameEn: '7.5' },
         { id: 'size-8', name: '8', nameEn: '8' },
-        { id: 'size-8.5', name: '8.5', nameEn: '8.5' },
         { id: 'size-9', name: '9', nameEn: '9' },
-        { id: 'size-9.5', name: '9.5', nameEn: '9.5' },
         { id: 'size-10', name: '10', nameEn: '10' },
       ]
     };
@@ -130,13 +126,13 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
   const addColorOption = () => {
     const newOption: ProductOption = {
       id: `color-${Date.now()}`,
-      name: 'Color',
+      name: 'اللون',
       nameEn: 'Color',
       values: [
-        { id: 'color-gold', name: 'Gold', nameEn: 'Gold' },
-        { id: 'color-silver', name: 'Silver', nameEn: 'Silver' },
-        { id: 'color-rose-gold', name: 'Rose Gold', nameEn: 'Rose Gold' },
-        { id: 'color-platinum', name: 'Platinum', nameEn: 'Platinum' },
+        { id: 'color-gold', name: 'ذهبي', nameEn: 'Gold' },
+        { id: 'color-silver', name: 'فضي', nameEn: 'Silver' },
+        { id: 'color-rose-gold', name: 'ذهبي وردي', nameEn: 'Rose Gold' },
+        { id: 'color-platinum', name: 'بلاتيني', nameEn: 'Platinum' },
       ]
     };
     setFormData(prev => ({
@@ -175,7 +171,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
               values: [...option.values, { 
                 id: `value-${Date.now()}`, 
                 name: 'قيمة جديدة', 
-                nameEn: 'New Value' 
+                nameEn: 'قيمة جديدة' 
               }]
             }
           : option
@@ -508,8 +504,8 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                       type="number"
                       step="0.01"
                       value={formData.originalPrice ?? ''}
-                      onChange={(e) => handleInputChange('originalPrice', parseFloat(e.target.value) || 0)}
-                      placeholder="0.00"
+                      onChange={(e) => handleInputChange('originalPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
+                      placeholder="Leave empty for no discount"
                     />
                       </div>
                     </div>
@@ -653,25 +649,25 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                 {formData.hasVariants && (
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-md font-medium text-gray-900">Product Options</h4>
+                      <h4 className="text-md font-medium text-gray-900">خيارات المنتج</h4>
                       <div className="flex gap-2">
                         <Button type="button" onClick={addSizeOption} size="sm" variant="outline">
-                          Add Size Options
+                          إضافة أحجام
                         </Button>
                         <Button type="button" onClick={addColorOption} size="sm" variant="outline">
-                          Add Color Options
+                          إضافة ألوان
                         </Button>
                       </div>
                     </div>
 
                     {/* Quick Guide */}
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <h5 className="font-medium text-blue-900 mb-2">💡 How to set up variants for rings:</h5>
+                      <h5 className="font-medium text-blue-900 mb-2">💡 كيفية إعداد المتغيرات للخواتم:</h5>
                       <ol className="text-sm text-blue-800 space-y-1 list-decimal list-inside">
-                        <li>Click &quot;Add Size Options&quot; to add ring sizes (6, 6.5, 7, etc.)</li>
-                        <li>Click &quot;Add Color Options&quot; to add colors (Gold, Silver, etc.)</li>
-                        <li>Click &quot;Generate All Variants&quot; to create all size/color combinations</li>
-                        <li>Edit each variant to set specific prices and stock levels</li>
+                        <li>انقر على &quot;إضافة أحجام&quot; لإضافة أحجام الخواتم (6، 7، 8، 9، 10)</li>
+                        <li>انقر على &quot;إضافة ألوان&quot; لإضافة الألوان (ذهبي، فضي، إلخ)</li>
+                        <li>انقر على &quot;توليد جميع المتغيرات&quot; لإنشاء جميع تركيبات الحجم/اللون</li>
+                        <li>قم بتحرير كل متغير لتعيين أسعار ومستويات مخزون محددة</li>
                       </ol>
                     </div>
 
@@ -705,7 +701,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                         
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
-                            <h6 className="text-sm font-medium text-gray-700">Values:</h6>
+                            <h6 className="text-sm font-medium text-gray-700">القيم:</h6>
                             <Button
                               type="button"
                               variant="outline"
@@ -714,7 +710,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                               className="text-xs"
                             >
                               <Plus className="h-3 w-3 mr-1" />
-                              Add Value
+                              إضافة قيمة
                             </Button>
                           </div>
                           

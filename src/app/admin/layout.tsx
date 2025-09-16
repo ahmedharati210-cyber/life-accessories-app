@@ -1,12 +1,16 @@
 import { ReactNode } from 'react';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminHeader } from '@/components/admin/AdminHeader';
+import { requireAdminAuth } from '@/lib/adminAuth';
 
 interface AdminLayoutProps {
   children: ReactNode;
 }
 
-export default function AdminLayout({ children }: AdminLayoutProps) {
+export default async function AdminLayout({ children }: AdminLayoutProps) {
+  // This will redirect to login if not authenticated
+  await requireAdminAuth();
+
   return (
     <div className="min-h-screen bg-gray-50">
       <AdminSidebar />
