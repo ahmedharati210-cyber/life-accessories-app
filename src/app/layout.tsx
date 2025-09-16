@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Cairo, Playfair_Display, Inter } from "next/font/google";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Toaster } from 'react-hot-toast';
 import { MobileBagIndicator } from '@/components/features/MobileBagIndicator';
