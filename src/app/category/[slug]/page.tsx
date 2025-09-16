@@ -9,6 +9,7 @@ import { ArrowLeft, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { useData } from '@/contexts/DataContext';
 import { Category } from '@/types';
+import { decodeSlug } from '@/lib/slug';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -21,7 +22,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const [category, setCategory] = useState<Category | null>(null);
   
   useEffect(() => {
-    params.then(({ slug }) => setSlug(slug));
+    params.then(({ slug }) => {
+      // Decode the slug to handle URL encoding issues
+      const decodedSlug = decodeSlug(slug);
+      setSlug(decodedSlug);
+    });
   }, [params]);
 
   // Use shared data context

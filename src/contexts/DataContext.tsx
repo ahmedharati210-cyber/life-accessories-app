@@ -3,6 +3,7 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { useApiCache } from '@/hooks/useCache';
 import { Product, Category } from '@/types';
+import { decodeSlug } from '@/lib/slug';
 
 interface DataContextType {
   products: Product[];
@@ -93,7 +94,9 @@ export function useCategories() {
 // Hook for finding a specific product by slug
 export function useProduct(slug: string) {
   const { products, productsLoading } = useData();
-  const product = products.find(p => p.slug.toLowerCase() === slug.toLowerCase());
+  // Decode the slug to handle URL encoding issues
+  const decodedSlug = decodeSlug(slug);
+  const product = products.find(p => p.slug.toLowerCase() === decodedSlug.toLowerCase());
   return { product, loading: productsLoading };
 }
 

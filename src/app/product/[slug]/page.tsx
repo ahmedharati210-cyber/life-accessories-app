@@ -13,6 +13,7 @@ import { Product, ProductVariant } from '@/types';
 import { formatPrice, calcDiscountPercentage } from '@/lib/price';
 import { useProduct, useData } from '@/contexts/DataContext';
 import { ArrowLeft, Heart, Share2, Star, Truck, Shield, Award } from 'lucide-react';
+import { decodeSlug } from '@/lib/slug';
 
 interface ProductPageProps {
   params: Promise<{
@@ -31,7 +32,11 @@ export default function ProductPage({ params }: ProductPageProps) {
   const { addItem, getItemQuantity } = useBag();
 
   useEffect(() => {
-    params.then(({ slug }) => setSlug(slug));
+    params.then(({ slug }) => {
+      // Decode the slug to handle URL encoding issues
+      const decodedSlug = decodeSlug(slug);
+      setSlug(decodedSlug);
+    });
   }, [params]);
 
   // Use shared data context to get product and products

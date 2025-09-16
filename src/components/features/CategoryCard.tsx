@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/Badge';
 import { 
   Gem, Clock, ShoppingBag, Footprints, Sparkles, Droplets 
 } from 'lucide-react';
+import { encodeSlug } from '@/lib/slug';
 
 interface CategoryCardProps {
   category: Category;
@@ -36,7 +37,7 @@ export function CategoryCard({ category, productCount }: CategoryCardProps) {
       className="group"
     >
       <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
-        <Link href={`/category/${category.slug}`}>
+        <Link href={`/category/${encodeSlug(category.slug)}`}>
           <div className="relative">
             {/* Category Image */}
             <div className="aspect-[4/3] relative overflow-hidden">

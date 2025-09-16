@@ -16,6 +16,7 @@ import {
   luxuryTransitions,
   performanceProps
 } from '@/lib/animations';
+import { encodeSlug } from '@/lib/slug';
 
 interface ProductCardProps {
   product: Product;
@@ -35,7 +36,7 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
       {...performanceProps}
     >
       <Link 
-        href={`/product/${product.slug}`} 
+        href={`/product/${encodeSlug(product.slug)}`} 
         className="block"
         onClick={() => console.log('🔗 ProductCard: Navigating to product:', product.slug)}
       >
@@ -186,24 +187,21 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
               className="mt-auto pt-4"
               transition={luxuryTransitions.snappy}
             >
-              <Button
-                className="w-full group/btn"
-                variant="outline"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  window.location.href = `/product/${product.slug}`;
-                }}
-              >
-                <motion.div
-                  className="flex items-center justify-center gap-2"
-                  whileHover={shouldReduceMotion ? {} : { x: -2 }}
-                  transition={luxuryTransitions.smooth}
+              <Link href={`/product/${encodeSlug(product.slug)}`}>
+                <Button
+                  className="w-full group/btn"
+                  variant="outline"
                 >
-                  <Eye className="w-4 h-4 group-hover/btn:scale-110 transition-transform duration-300" />
-                  <span>عرض المنتج</span>
-                </motion.div>
-              </Button>
+                  <motion.div
+                    className="flex items-center justify-center gap-2"
+                    whileHover={shouldReduceMotion ? {} : { x: -2 }}
+                    transition={luxuryTransitions.smooth}
+                  >
+                    <Eye className="w-4 h-4 group-hover/btn:scale-110 transition-transform duration-300" />
+                    <span>عرض المنتج</span>
+                  </motion.div>
+                </Button>
+              </Link>
             </motion.div>
           </CardContent>
           </div>
