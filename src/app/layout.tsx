@@ -8,6 +8,7 @@ import { MotionProvider } from '@/components/providers/MotionProvider';
 import { BagProvider } from '@/contexts/BagContext';
 import { DataProvider } from '@/contexts/DataContext';
 import { ConditionalLayout } from '@/components/layout/ConditionalLayout';
+import { PerformanceOptimizer } from '@/components/PerformanceOptimizer';
 import "./globals.css";
 import '@/lib/preloadAnimations';
 
@@ -94,6 +95,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="light only" />
       </head>
       <body className={`${cairo.variable} ${playfair.variable} ${inter.variable} antialiased`}>
+        <PerformanceOptimizer />
         <BagProvider>
           <DataProvider>
             <MotionProvider>

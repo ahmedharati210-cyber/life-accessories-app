@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { X, Trash2, Plus, Star, Edit } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { ThumbnailImage } from '@/components/ui/CloudinaryImage';
 import { ImageUpload } from './ImageUpload';
 import { AdminProduct, ProductVariant, ProductOption, CustomerReview } from '@/types';
 
@@ -607,10 +608,10 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       {formData.images.map((image, index) => (
                         <div key={index} className="relative group h-24">
-                          <img
+                          <ThumbnailImage
                             src={image}
                             alt={`Product ${index + 1}`}
-                            className="w-full h-full object-cover rounded-lg"
+                            className="w-full h-full rounded-lg"
                           />
                           <button
                             type="button"

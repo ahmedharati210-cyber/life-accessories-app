@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Sparkles, Truck, Shield } from 'lucide-react';
 import { LazyMotion } from '@/components/ui/LazyMotion';
+import { HeroImage } from '@/components/ui/CloudinaryImage';
 import { getAnimationChunk, AnimationChunk } from '@/lib/animationLoader';
 import { useState, useEffect } from 'react';
 
@@ -19,10 +20,11 @@ export function Hero() {
     return (
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-20 pt-20">
         <div className="absolute inset-0 top-0">
-          <img 
+          <HeroImage 
             src="/images/hero-jewelry.jpeg" 
             alt="Life Accessories Jewelry Collection"
-            className="w-full h-full object-cover brightness-75 contrast-125 saturate-110"
+            className="w-full h-full brightness-75 contrast-125 saturate-110"
+            priority={true}
           />
           <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 via-transparent to-transparent" />
@@ -52,10 +54,11 @@ export function Hero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-20 pt-20">
       {/* Hero Background Image */}
       <div className="absolute inset-0 top-0">
-        <img 
+        <HeroImage 
           src="/images/hero-jewelry.jpeg" 
           alt="Life Accessories Jewelry Collection"
-          className="w-full h-full object-cover brightness-75 contrast-125 saturate-110"
+          className="w-full h-full brightness-75 contrast-125 saturate-110"
+          priority={true}
         />
         {/* Subtle overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/40" />

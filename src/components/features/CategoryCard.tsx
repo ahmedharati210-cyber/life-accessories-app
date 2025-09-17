@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Category } from '@/types';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { CategoryImage } from '@/components/ui/CloudinaryImage';
 import { 
   Gem, Clock, ShoppingBag, Footprints, Sparkles, Droplets 
 } from 'lucide-react';
@@ -41,12 +41,11 @@ export function CategoryCard({ category, productCount }: CategoryCardProps) {
           <div className="relative">
             {/* Category Image */}
             <div className="aspect-[4/3] relative overflow-hidden">
-              <Image
+              <CategoryImage
                 src={category.image}
                 alt={category.name}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="w-full h-full group-hover:scale-110 transition-transform duration-500"
+                priority={false}
               />
               
               {/* Gradient Overlay */}

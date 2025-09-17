@@ -1,12 +1,12 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import Image from 'next/image';
 import { memo } from 'react';
 import { Product } from '@/types';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardContent } from '@/components/ui/Card';
+import { ProductImage } from '@/components/ui/CloudinaryImage';
 import { Heart, Eye } from 'lucide-react';
 import { formatPrice } from '@/lib/price';
 import { 
@@ -48,12 +48,11 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
               transition={luxuryTransitions.smooth}
               className="w-full h-full"
             >
-              <Image
+              <ProductImage
                 src={product.thumbnail}
                 alt={product.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="w-full h-full"
+                priority={false}
               />
             </motion.div>
             

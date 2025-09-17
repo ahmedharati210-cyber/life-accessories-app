@@ -3,6 +3,10 @@ import { cloudinary } from '@/lib/cloudinary';
 
 export async function GET() {
   try {
+    if (!cloudinary) {
+      throw new Error('Cloudinary not initialized');
+    }
+    
     // Test Cloudinary connection by getting account info
     const result = await cloudinary.api.ping();
     

@@ -27,6 +27,10 @@ const nextConfig: NextConfig = {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    qualities: [25, 50, 75, 80, 90, 100],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
       {
         protocol: 'https',
@@ -40,21 +44,69 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
   webpack: (config, { dev, isServer }) => {
-    // Optimize bundle splitting for animations
+    // Optimize bundle splitting for better performance
     if (!dev && !isServer) {
       config.optimization.splitChunks.cacheGroups = {
         ...config.optimization.splitChunks.cacheGroups,
+        // Core UI components
+        ui: {
+          name: 'ui',
+          test: /[\\/]components[\\/]ui[\\/]/,
+          chunks: 'all',
+          priority: 30,
+          minSize: 0,
+        },
+        // Admin components (separate chunk)
+        admin: {
+          name: 'admin',
+          test: /[\\/]components[\\/]admin[\\/]/,
+          chunks: 'all',
+          priority: 25,
+          minSize: 0,
+        },
+        // Feature components
+        features: {
+          name: 'features',
+          test: /[\\/]components[\\/]features[\\/]/,
+          chunks: 'all',
+          priority: 20,
+          minSize: 0,
+        },
+        // Animations
         animations: {
           name: 'animations',
           test: /[\\/]lib[\\/]animations\.ts$/,
           chunks: 'all',
           priority: 20,
         },
+        // Framer Motion
         framerMotion: {
           name: 'framer-motion',
           test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
           chunks: 'all',
           priority: 15,
+        },
+        // Lucide React icons
+        icons: {
+          name: 'icons',
+          test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+          chunks: 'all',
+          priority: 15,
+        },
+        // React Hot Toast
+        toast: {
+          name: 'toast',
+          test: /[\\/]node_modules[\\/]react-hot-toast[\\/]/,
+          chunks: 'all',
+          priority: 10,
+        },
+        // Common vendor libraries
+        vendor: {
+          name: 'vendor',
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+          priority: 5,
+          minSize: 0,
         },
       };
     }
