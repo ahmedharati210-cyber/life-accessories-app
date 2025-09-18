@@ -12,7 +12,7 @@ import { useBag } from '@/contexts/BagContext';
 import { Product, ProductVariant } from '@/types';
 import { formatPrice, calcDiscountPercentage } from '@/lib/price';
 import { useProduct, useData } from '@/contexts/DataContext';
-import { ArrowLeft, Heart, Share2, Star, Truck, Shield, Award } from 'lucide-react';
+import { ArrowLeft, Share2, Star, Truck, Shield, Award } from 'lucide-react';
 import { decodeSlug } from '@/lib/slug';
 
 interface ProductPageProps {
@@ -30,6 +30,32 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const { addItem, getItemQuantity } = useBag();
+
+  const handleShare = async () => {
+    if (!product) return;
+    
+    const shareData = {
+      title: `${product.name} - Life Accessories`,
+      text: `اكتشف ${product.name} - ${product.description}`,
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+    } else {
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('تم نسخ الرابط إلى الحافظة');
+      } catch (err) {
+        console.log('Error copying to clipboard:', err);
+      }
+    }
+  };
 
   useEffect(() => {
     params.then(({ slug }) => {
@@ -357,11 +383,13 @@ export default function ProductPage({ params }: ProductPageProps) {
                     }
                   </Button>
                   
-                  <Button variant="outline" size="icon" className="h-12 w-12">
-                    <Heart className="w-5 h-5" />
-                  </Button>
-                  
-                  <Button variant="outline" size="icon" className="h-12 w-12">
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    className="h-12 w-12"
+                    onClick={handleShare}
+                    title="مشاركة المنتج"
+                  >
                     <Share2 className="w-5 h-5" />
                   </Button>
                 </div>

@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/Button';
 import { 
   Mail, 
   Phone, 
-  Heart,
   Sparkles,
   MessageCircle,
   Instagram,
@@ -115,16 +114,6 @@ export function Footer() {
             </Link>
           </div>
 
-          {/* Special Message */}
-          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 max-w-lg mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Heart className="h-5 w-5 text-pink-500" />
-              <span className="font-semibold text-purple-700">مصنوع بحب في ليبيا</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              كل قطعة مجوهرات تحمل قصة فريدة من التراث الليبي الأصيل
-            </p>
-          </div>
         </div>
 
         {/* Bottom */}

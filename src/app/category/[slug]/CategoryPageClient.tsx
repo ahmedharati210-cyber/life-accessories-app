@@ -84,22 +84,22 @@ export function CategoryPageClient({ category, products }: CategoryPageClientPro
         </div>
 
         {/* Category Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-primary">{categoryProducts.length}</div>
-            <div className="text-sm text-gray-600">إجمالي المنتجات</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          <div className="bg-white rounded-lg p-3 sm:p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-primary">{categoryProducts.length}</div>
+            <div className="text-xs sm:text-sm text-gray-600">إجمالي المنتجات</div>
           </div>
-          <div className="bg-white rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-green-600">{inStockProducts.length}</div>
-            <div className="text-sm text-gray-600">متوفر</div>
+          <div className="bg-white rounded-lg p-3 sm:p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-green-600">{inStockProducts.length}</div>
+            <div className="text-xs sm:text-sm text-gray-600">متوفر</div>
           </div>
-          <div className="bg-white rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-blue-600">{newProducts.length}</div>
-            <div className="text-sm text-gray-600">جديد</div>
+          <div className="bg-white rounded-lg p-3 sm:p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-blue-600">{newProducts.length}</div>
+            <div className="text-xs sm:text-sm text-gray-600">جديد</div>
           </div>
-          <div className="bg-white rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-red-600">{onSaleProducts.length}</div>
-            <div className="text-sm text-gray-600">خصم</div>
+          <div className="bg-white rounded-lg p-3 sm:p-4 text-center">
+            <div className="text-xl sm:text-2xl font-bold text-red-600">{onSaleProducts.length}</div>
+            <div className="text-xs sm:text-sm text-gray-600">خصم</div>
           </div>
         </div>
 

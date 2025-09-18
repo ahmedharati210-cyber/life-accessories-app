@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardContent } from '@/components/ui/Card';
 import { ProductImage } from '@/components/ui/CloudinaryImage';
-import { Heart, Eye } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { formatPrice } from '@/lib/price';
 import { 
   fadeInUp, 
@@ -92,32 +92,6 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
               )}
             </div>
             
-            {/* Quick Actions */}
-            <motion.div 
-              className="absolute top-3 left-3 flex flex-col gap-2"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileHover={shouldReduceMotion ? {} : { opacity: 1, scale: 1 }}
-              transition={luxuryTransitions.smooth}
-            >
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                transition={luxuryTransitions.snappy}
-              >
-                <Button
-                  size="icon"
-                  variant="secondary"
-                  className="w-8 h-8 rounded-full shadow-lg backdrop-blur-sm bg-white/90 hover:bg-white"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    // TODO: Implement wishlist functionality
-                  }}
-                >
-                  <Heart className="w-4 h-4" />
-                </Button>
-              </motion.div>
-            </motion.div>
           </div>
           
           <CardContent className="p-4 flex-1 flex flex-col">
