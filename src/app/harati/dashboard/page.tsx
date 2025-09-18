@@ -168,7 +168,10 @@ export default function AdminDashboard() {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-medium text-gray-900">Recent Orders</h3>
-            <button className="text-sm text-blue-600 hover:text-blue-500">
+            <button 
+              onClick={() => window.location.href = '/harati/orders'}
+              className="text-sm text-blue-600 hover:text-blue-500"
+            >
               View all
             </button>
           </div>
@@ -215,7 +218,10 @@ export default function AdminDashboard() {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-medium text-gray-900">Top Products</h3>
-            <button className="text-sm text-blue-600 hover:text-blue-500">
+            <button 
+              onClick={() => window.location.href = '/harati/products'}
+              className="text-sm text-blue-600 hover:text-blue-500"
+            >
               View all
             </button>
           </div>
@@ -254,19 +260,31 @@ export default function AdminDashboard() {
       <Card className="p-6">
         <h3 className="text-lg font-medium text-gray-900 mb-6">Quick Actions</h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <button className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => window.location.href = '/harati/products'}
+            className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
             <Package className="h-5 w-5 text-gray-400 mr-3" />
             <span className="text-sm font-medium text-gray-900">Add Product</span>
           </button>
-          <button className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => window.location.href = '/harati/orders'}
+            className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
             <ShoppingCart className="h-5 w-5 text-gray-400 mr-3" />
             <span className="text-sm font-medium text-gray-900">View Orders</span>
           </button>
-          <button className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => window.location.href = '/'}
+            className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
             <Eye className="h-5 w-5 text-gray-400 mr-3" />
             <span className="text-sm font-medium text-gray-900">View Store</span>
           </button>
-          <button className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => window.location.href = '/harati/analytics'}
+            className="flex items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
             <TrendingUp className="h-5 w-5 text-gray-400 mr-3" />
             <span className="text-sm font-medium text-gray-900">Analytics</span>
           </button>

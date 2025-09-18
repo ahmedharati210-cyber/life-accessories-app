@@ -233,9 +233,38 @@ export default function OrdersPage() {
     }
   };
 
-  const updateOrderStatus = (orderId: string, newStatus: string) => {
-    // In real app, this would call your API
-    console.log('Update order status:', orderId, newStatus);
+  const updateOrderStatus = async (orderId: string, newStatus: string) => {
+    try {
+      const response = await fetch(`/api/orders/${orderId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          status: newStatus,
+          trackingInfo: trackingInfo,
+          estimatedDelivery: estimatedDelivery,
+          notes: notes
+        }),
+      });
+
+      if (response.ok) {
+        setOrders(orders.map(order => 
+          order.id === orderId ? { ...order, status: newStatus as 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled' } : order
+        ));
+        // Clear form fields
+        setTrackingInfo('');
+        setEstimatedDelivery('');
+        setNotes('');
+        alert('Order status updated successfully!');
+      } else {
+        const errorData = await response.json();
+        alert('Failed to update order status: ' + (errorData.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      alert('Error updating order status');
+    }
   };
 
   const getStatusIcon = (status: string) => {
