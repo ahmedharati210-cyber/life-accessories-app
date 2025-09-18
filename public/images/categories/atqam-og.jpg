@@ -1,0 +1,104 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <rect width="1200" height="630" fill="url(#gradient4)"/>
+  <defs>
+    <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Jewelry set elements - rings -->
+  <circle cx="200" cy="150" r="30" fill="none" stroke="#22c55e" stroke-width="4"/>
+  <circle cx="200" cy="150" r="20" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="200" cy="150" r="10" fill="#ffffff"/>
+  
+  <circle cx="300" cy="150" r="25" fill="none" stroke="#22c55e" stroke-width="4"/>
+  <circle cx="300" cy="150" r="15" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="300" cy="150" r="8" fill="#ffffff"/>
+  
+  <circle cx="400" cy="150" r="35" fill="none" stroke="#22c55e" stroke-width="4"/>
+  <circle cx="400" cy="150" r="25" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="400" cy="150" r="15" fill="#ffffff"/>
+  
+  <!-- Necklace elements -->
+  <circle cx="200" cy="250" r="40" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <circle cx="200" cy="250" r="30" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="200" cy="250" r="20" fill="#ffffff"/>
+  
+  <circle cx="300" cy="250" r="35" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <circle cx="300" cy="250" r="25" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="300" cy="250" r="15" fill="#ffffff"/>
+  
+  <circle cx="400" cy="250" r="45" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <circle cx="400" cy="250" r="35" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="400" cy="250" r="25" fill="#ffffff"/>
+  
+  <!-- Watch elements -->
+  <circle cx="200" cy="350" r="50" fill="#22c55e" stroke="#16a34a" stroke-width="4"/>
+  <circle cx="200" cy="350" r="35" fill="#4ade80"/>
+  <circle cx="200" cy="350" r="25" fill="#ffffff"/>
+  <line x1="200" y1="350" x2="200" y2="310" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="200" y1="350" x2="220" y2="350" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="200" cy="350" r="4" fill="#16a34a"/>
+  
+  <circle cx="300" cy="350" r="45" fill="#22c55e" stroke="#16a34a" stroke-width="4"/>
+  <circle cx="300" cy="350" r="30" fill="#4ade80"/>
+  <circle cx="300" cy="350" r="20" fill="#ffffff"/>
+  <line x1="300" y1="350" x2="300" y2="320" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="300" y1="350" x2="320" y2="350" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="300" cy="350" r="4" fill="#16a34a"/>
+  
+  <circle cx="400" cy="350" r="55" fill="#22c55e" stroke="#16a34a" stroke-width="4"/>
+  <circle cx="400" cy="350" r="40" fill="#4ade80"/>
+  <circle cx="400" cy="350" r="30" fill="#ffffff"/>
+  <line x1="400" y1="350" x2="400" y2="305" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="400" y1="350" x2="420" y2="350" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="400" cy="350" r="4" fill="#16a34a"/>
+  
+  <!-- Earrings -->
+  <circle cx="600" cy="150" r="20" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <circle cx="600" cy="150" r="12" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="600" cy="150" r="6" fill="#ffffff"/>
+  
+  <circle cx="700" cy="150" r="25" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <circle cx="700" cy="150" r="15" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="700" cy="150" r="8" fill="#ffffff"/>
+  
+  <circle cx="800" cy="150" r="22" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <circle cx="800" cy="150" r="14" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="800" cy="150" r="7" fill="#ffffff"/>
+  
+  <!-- Bracelets -->
+  <ellipse cx="600" cy="250" rx="30" ry="20" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <ellipse cx="600" cy="250" rx="20" ry="12" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <ellipse cx="600" cy="250" rx="10" ry="6" fill="#ffffff"/>
+  
+  <ellipse cx="700" cy="250" rx="35" ry="22" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <ellipse cx="700" cy="250" rx="25" ry="15" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <ellipse cx="700" cy="250" rx="15" ry="9" fill="#ffffff"/>
+  
+  <ellipse cx="800" cy="250" rx="32" ry="20" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <ellipse cx="800" cy="250" rx="22" ry="14" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <ellipse cx="800" cy="250" rx="12" ry="7" fill="#ffffff"/>
+  
+  <!-- Brooches/Pins -->
+  <circle cx="600" cy="350" r="25" fill="#22c55e" stroke="#16a34a" stroke-width="3"/>
+  <circle cx="600" cy="350" r="18" fill="#4ade80"/>
+  <circle cx="600" cy="350" r="12" fill="#ffffff"/>
+  
+  <circle cx="700" cy="350" r="30" fill="#22c55e" stroke="#16a34a" stroke-width="3"/>
+  <circle cx="700" cy="350" r="22" fill="#4ade80"/>
+  <circle cx="700" cy="350" r="15" fill="#ffffff"/>
+  
+  <circle cx="800" cy="350" r="28" fill="#22c55e" stroke="#16a34a" stroke-width="3"/>
+  <circle cx="800" cy="350" r="20" fill="#4ade80"/>
+  <circle cx="800" cy="350" r="13" fill="#ffffff"/>
+  
+  <!-- Main title -->
+  <text x="600" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#15803d">أطقم</text>
+  <text x="600" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#166534">مجموعات إكسسوارات متناسقة وأنيقة</text>
+  
+  <!-- Brand name -->
+  <text x="600" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#15803d">لايف أكسسوارز</text>
+</svg>

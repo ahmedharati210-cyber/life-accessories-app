@@ -58,8 +58,12 @@ export async function PUT(
       { $set: categoryData }
     );
     
-    // Invalidate cache after updating category
+    // Invalidate all caches after updating category
+    cacheHelpers.invalidateByType('categories');
     cacheHelpers.invalidateByType('category', existingCategory.slug);
+    
+    // Force clear all caches for immediate effect
+    cacheHelpers.invalidateAll();
     
     return NextResponse.json({
       success: true,
@@ -103,8 +107,12 @@ export async function DELETE(
     
     await categories.deleteOne({ _id: new ObjectId(id) });
     
-    // Invalidate cache after deleting category
+    // Invalidate all category-related caches after deleting category
+    cacheHelpers.invalidateByType('categories');
     cacheHelpers.invalidateByType('category', category.slug);
+    
+    // Force clear all caches to ensure immediate effect
+    cacheHelpers.invalidateAll();
     
     return NextResponse.json({
       success: true,

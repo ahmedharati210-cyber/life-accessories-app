@@ -8,14 +8,15 @@ import {
   Edit, 
   Trash2, 
   MoreHorizontal,
-  Package
+  Package,
+  RefreshCw
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ProductModal } from '@/components/admin/ProductModal';
-import { Product, AdminProduct } from '@/types';
+import { AdminProduct, ProductVariant, ProductOption, CustomerReview } from '@/types';
 import toast from 'react-hot-toast';
 
 
@@ -27,14 +28,38 @@ interface Category {
   slug: string;
 }
 
+// Raw database product interface (what /api/products returns)
+interface DatabaseProduct {
+  _id: string;
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  category: string;
+  featured: boolean;
+  inStock: boolean;
+  stock: number;
+  images: string[];
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+  hasVariants?: boolean;
+  variants?: ProductVariant[];
+  options?: ProductOption[];
+  customerReviews?: CustomerReview[];
+}
+
 export default function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<DatabaseProduct[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showProductModal, setShowProductModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState<AdminProduct | null>(null);
+  const [clearingCache, setClearingCache] = useState(false);
 
   // Fetch products from API
   const fetchProducts = async () => {
@@ -92,7 +117,7 @@ export default function ProductsPage() {
     return category ? category.name : 'Unknown Category';
   };
 
-  const handleEditProduct = (product: Product) => {
+  const handleEditProduct = (product: DatabaseProduct) => {
     // Convert Product to AdminProduct
     const adminProduct: AdminProduct = {
       id: product.id,
@@ -103,7 +128,7 @@ export default function ProductsPage() {
       price: product.price,
       originalPrice: product.originalPrice,
       category: product.category,
-      featured: product.isFeatured,
+      featured: product.featured,
       inStock: product.inStock,
       stock: product.stock,
       images: product.images,
@@ -175,6 +200,27 @@ export default function ProductsPage() {
     }
   };
 
+  const clearCache = async () => {
+    setClearingCache(true);
+    try {
+      const response = await fetch('/api/clear-cache', {
+        method: 'DELETE',
+      });
+      const result = await response.json();
+      
+      if (result.success) {
+        toast.success('Cache cleared! Website changes should now be visible.');
+      } else {
+        toast.error('Failed to clear cache');
+      }
+    } catch (error) {
+      console.error('Error clearing cache:', error);
+      toast.error('Failed to clear cache');
+    } finally {
+      setClearingCache(false);
+    }
+  };
+
   return (
     <>
       {/* Page header */}
@@ -185,10 +231,21 @@ export default function ProductsPage() {
             Manage your product catalog
           </p>
         </div>
-        <Button onClick={handleAddProduct} className="flex items-center gap-2">
-          <Plus className="h-4 w-4" />
-          Add Product
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button 
+            onClick={clearCache} 
+            disabled={clearingCache}
+            variant="outline" 
+            className="flex items-center gap-2"
+          >
+            <RefreshCw className={`h-4 w-4 ${clearingCache ? 'animate-spin' : ''}`} />
+            {clearingCache ? 'Clearing...' : 'Clear Cache'}
+          </Button>
+          <Button onClick={handleAddProduct} className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            Add Product
+          </Button>
+        </div>
       </div>
 
       {/* Filters */}
@@ -253,7 +310,7 @@ export default function ProductsPage() {
                   <Package className="h-12 w-12 text-gray-400" />
                 </div>
               )}
-              {product.isFeatured && (
+              {product.featured && (
                 <Badge className="absolute top-2 left-2 bg-yellow-500">
                   Featured
                 </Badge>

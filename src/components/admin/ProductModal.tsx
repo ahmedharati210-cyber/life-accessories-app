@@ -26,7 +26,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
     slug: '',
     description: '',
     price: 0,
-    originalPrice: undefined,
+    originalPrice: 0,
     category: '',
     featured: false,
     inStock: true,
@@ -62,7 +62,25 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
 
   useEffect(() => {
     if (product) {
-      setFormData(product);
+      // Ensure all variant prices and option values are properly initialized
+      const normalizedProduct = {
+        ...product,
+        originalPrice: product.originalPrice || 0,
+        variants: product.variants?.map(variant => ({
+          ...variant,
+          price: variant.price || 0,
+          stock: variant.stock || 0
+        })) || [],
+        options: product.options?.map(option => ({
+          ...option,
+          values: option.values?.map(value => ({
+            ...value,
+            name: value.name || '',
+            nameEn: value.nameEn || ''
+          })) || []
+        })) || []
+      };
+      setFormData(normalizedProduct);
     }
   }, [product]);
 
@@ -504,8 +522,8 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                     <Input
                       type="number"
                       step="0.01"
-                      value={formData.originalPrice ?? ''}
-                      onChange={(e) => handleInputChange('originalPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
+                      value={formData.originalPrice && formData.originalPrice > 0 ? formData.originalPrice : ''}
+                      onChange={(e) => handleInputChange('originalPrice', e.target.value ? parseFloat(e.target.value) : 0)}
                       placeholder="Leave empty for no discount"
                     />
                       </div>
@@ -677,13 +695,13 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex-1 grid grid-cols-2 gap-2">
                             <Input
-                              value={option.name}
+                              value={option.name || ''}
                               onChange={(e) => updateOptionName(option.id, 'name', e.target.value)}
                               placeholder="Option name (Arabic)"
                               className="text-sm"
                             />
                             <Input
-                              value={option.nameEn}
+                              value={option.nameEn || ''}
                               onChange={(e) => updateOptionName(option.id, 'nameEn', e.target.value)}
                               placeholder="Option name (English)"
                               className="text-sm"
@@ -719,13 +737,13 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                             {option.values.map((value) => (
                               <div key={value.id} className="flex items-center gap-2">
                                 <Input
-                                  value={value.name}
+                                  value={value.name || ''}
                                   onChange={(e) => updateOptionValue(option.id, value.id, 'name', e.target.value)}
                                   placeholder="Value (Arabic)"
                                   className="text-sm flex-1"
                                 />
                                 <Input
-                                  value={value.nameEn}
+                                  value={value.nameEn || ''}
                                   onChange={(e) => updateOptionValue(option.id, value.id, 'nameEn', e.target.value)}
                                   placeholder="Value (English)"
                                   className="text-sm flex-1"
@@ -809,7 +827,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                             <Input
                               type="number"
                               step="0.01"
-                              value={variant.price ?? ''}
+                              value={variant.price && variant.price > 0 ? variant.price : ''}
                               onChange={(e) => updateVariant(variant.id, { price: parseFloat(e.target.value) || 0 })}
                               placeholder="Leave empty to use base price"
                             />
@@ -821,7 +839,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                             <Input
                               type="number"
                               min="0"
-                              value={variant.stock}
+                              value={variant.stock || 0}
                               onChange={(e) => updateVariant(variant.id, { 
                                 stock: parseInt(e.target.value) || 0,
                                 inStock: (parseInt(e.target.value) || 0) > 0

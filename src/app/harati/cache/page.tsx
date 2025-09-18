@@ -39,10 +39,11 @@ export default function CacheManagementPage() {
     }
   };
 
-  const clearCache = async (type: string = 'all') => {
+  const clearCache = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/admin/cache?type=${type}`, {
+      // Use the correct cache clear API endpoint with DELETE method
+      const response = await fetch('/api/clear-cache', {
         method: 'DELETE',
       });
       const result = await response.json();
@@ -50,9 +51,13 @@ export default function CacheManagementPage() {
       if (result.success) {
         // Refresh stats after clearing
         await fetchStats();
+        alert(`Cache cleared successfully! ${result.message}`);
+      } else {
+        alert(`Failed to clear cache: ${result.error}`);
       }
     } catch (error) {
       console.error('Error clearing cache:', error);
+      alert('Failed to clear cache. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -62,6 +67,30 @@ export default function CacheManagementPage() {
     setRefreshing(true);
     await fetchStats();
     setRefreshing(false);
+  };
+
+  const forceRefresh = async () => {
+    setLoading(true);
+    try {
+      // Clear all caches using DELETE method
+      const response = await fetch('/api/clear-cache', {
+        method: 'DELETE',
+      });
+      const result = await response.json();
+      
+      if (result.success) {
+        // Also refresh the stats
+        await fetchStats();
+        alert('Cache cleared and website refreshed! Changes should now be visible.');
+      } else {
+        alert(`Failed to refresh: ${result.error}`);
+      }
+    } catch (error) {
+      console.error('Error refreshing:', error);
+      alert('Failed to refresh. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const warmCache = async (type: string = 'all') => {
@@ -109,6 +138,12 @@ export default function CacheManagementPage() {
         <p className="text-muted-foreground">
           Monitor and manage the application cache for optimal performance
         </p>
+        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-blue-800">
+            <strong>💡 Tip:</strong> If you delete or update categories and don&apos;t see changes on the website, 
+            use the &quot;Force Refresh Website&quot; button below to clear all caches immediately.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -190,33 +225,33 @@ export default function CacheManagementPage() {
             <hr className="my-4" />
             
             <Button
-              onClick={() => clearCache('products')}
-              disabled={loading}
-              className="w-full justify-start"
-              variant="outline"
-            >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Clear Products Cache
-            </Button>
-            
-            <Button
-              onClick={() => clearCache('categories')}
-              disabled={loading}
-              className="w-full justify-start"
-              variant="outline"
-            >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Clear Categories Cache
-            </Button>
-            
-            <Button
-              onClick={() => clearCache('all')}
+              onClick={clearCache}
               disabled={loading}
               className="w-full justify-start"
               variant="destructive"
             >
               <Trash2 className="h-4 w-4 mr-2" />
-              Clear All Cache
+              {loading ? 'Clearing...' : 'Clear All Cache'}
+            </Button>
+            
+            <Button
+              onClick={refreshStats}
+              disabled={refreshing}
+              className="w-full justify-start"
+              variant="outline"
+            >
+              <RefreshCw className="h-4 w-4 mr-2" />
+              {refreshing ? 'Refreshing...' : 'Refresh Stats'}
+            </Button>
+            
+            <Button
+              onClick={forceRefresh}
+              disabled={loading}
+              className="w-full justify-start"
+              variant="default"
+            >
+              <Zap className="h-4 w-4 mr-2" />
+              {loading ? 'Refreshing...' : 'Force Refresh Website'}
             </Button>
           </div>
         </Card>

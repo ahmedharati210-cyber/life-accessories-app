@@ -55,11 +55,20 @@ export const metadata: Metadata = {
     siteName: "لايف أكسسوارز",
     locale: "ar_LY",
     type: "website",
+    images: [
+      {
+        url: "https://life-accessories.vercel.app/images/hero-jewelry.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "لايف أكسسوارز - متجر الإكسسوارات الأنيقة",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "لايف أكسسوارز - متجر الإكسسوارات الأنيقة",
     description: "اكتشف أحدث الإكسسوارات الأنيقة والعصرية. توصيل مجاني للطلبات الكبيرة. دفع عند الاستلام.",
+    images: ["https://life-accessories.vercel.app/images/hero-jewelry.jpeg"],
   },
   robots: {
     index: true,

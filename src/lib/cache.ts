@@ -227,6 +227,11 @@ export const cacheHelpers = {
   invalidateCategories(): void {
     cache.clearPattern('^categories?:');
     cache.clearPattern('^category:');
+    // Also clear any cached data that might be using different patterns
+    cache.clearPattern('categories');
+    cache.clearPattern('category');
+    // Clear all cache to be absolutely sure
+    cache.clear();
   },
 
   /**

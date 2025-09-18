@@ -11,7 +11,13 @@ export async function GET() {
     // Get product counts for each category
     const categoryProductCounts = await Promise.all(
       allCategories.map(async (category) => {
-        const count = await products.countDocuments({ category: category._id });
+        // Try both ObjectId and string versions since products store category as string
+        const count = await products.countDocuments({ 
+          $or: [
+            { category: category._id },
+            { category: category._id.toString() }
+          ]
+        });
         return { categoryId: category._id, count };
       })
     );
@@ -69,8 +75,9 @@ export async function POST(request: NextRequest) {
     
     const result = await categories.insertOne(categoryData);
     
-    // Invalidate categories cache after creating new category
+    // Invalidate all caches after creating new category
     cacheHelpers.invalidateByType('categories');
+    cacheHelpers.invalidateAll();
     
     return NextResponse.json({
       success: true,

@@ -29,7 +29,7 @@ export async function GET() {
     // Get product counts for each category
     const categoryProductCounts = await Promise.all(
       allCategories.map(async (category) => {
-        // Try both ObjectId and string versions
+        // Try both ObjectId and string versions since products store category as string
         const count = await products.countDocuments({ 
           $or: [
             { category: category._id },

@@ -1,0 +1,75 @@
+<svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Elegant dark background with rose gold gradient -->
+  <rect width="600" height="400" fill="url(#roseGoldGradient)"/>
+  <defs>
+    <linearGradient id="roseGoldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d1b69;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4c1d95;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Rose gold gradient for rings -->
+    <linearGradient id="roseGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fde047;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Diamond sparkle effect -->
+    <radialGradient id="diamondGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#fef3c7;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:0.4" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Elegant ring 1 - Solitaire -->
+  <circle cx="150" cy="150" r="45" fill="none" stroke="url(#roseGold)" stroke-width="6"/>
+  <circle cx="150" cy="150" r="35" fill="none" stroke="url(#roseGold)" stroke-width="3" opacity="0.7"/>
+  <circle cx="150" cy="150" r="25" fill="url(#diamondGlow)"/>
+  <circle cx="150" cy="150" r="8" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Elegant ring 2 - Vintage style -->
+  <circle cx="300" cy="140" r="50" fill="none" stroke="url(#roseGold)" stroke-width="5"/>
+  <circle cx="300" cy="140" r="40" fill="none" stroke="url(#roseGold)" stroke-width="2" opacity="0.6"/>
+  <circle cx="300" cy="140" r="30" fill="url(#diamondGlow)"/>
+  <!-- Vintage details -->
+  <path d="M280 140 Q300 120 320 140 Q300 160 280 140" fill="none" stroke="url(#roseGold)" stroke-width="2" opacity="0.5"/>
+  <circle cx="300" cy="140" r="6" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Elegant ring 3 - Modern band -->
+  <circle cx="450" cy="160" r="42" fill="none" stroke="url(#roseGold)" stroke-width="4"/>
+  <circle cx="450" cy="160" r="32" fill="none" stroke="url(#roseGold)" stroke-width="2" opacity="0.5"/>
+  <circle cx="450" cy="160" r="22" fill="url(#diamondGlow)"/>
+  <!-- Modern geometric details -->
+  <rect x="440" y="150" width="20" height="20" fill="none" stroke="url(#roseGold)" stroke-width="1" opacity="0.4"/>
+  <circle cx="450" cy="160" r="5" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Elegant ring 4 - Eternity band -->
+  <circle cx="200" cy="280" r="35" fill="none" stroke="url(#roseGold)" stroke-width="4"/>
+  <circle cx="200" cy="280" r="25" fill="none" stroke="url(#roseGold)" stroke-width="2" opacity="0.6"/>
+  <circle cx="200" cy="280" r="15" fill="url(#diamondGlow)"/>
+  <!-- Eternity details -->
+  <circle cx="200" cy="280" r="8" fill="none" stroke="url(#roseGold)" stroke-width="1" opacity="0.7"/>
+  <circle cx="200" cy="280" r="4" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Elegant ring 5 - Statement ring -->
+  <circle cx="400" cy="290" r="38" fill="none" stroke="url(#roseGold)" stroke-width="5"/>
+  <circle cx="400" cy="290" r="28" fill="none" stroke="url(#roseGold)" stroke-width="2" opacity="0.5"/>
+  <circle cx="400" cy="290" r="18" fill="url(#diamondGlow)"/>
+  <!-- Statement details -->
+  <path d="M390 280 Q400 270 410 280 Q400 300 390 280" fill="none" stroke="url(#roseGold)" stroke-width="2" opacity="0.6"/>
+  <circle cx="400" cy="290" r="6" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Elegant typography -->
+  <text x="300" y="350" text-anchor="middle" font-family="serif" font-size="36" font-weight="300" fill="#fbbf24">خواتم</text>
+  <text x="300" y="380" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#e2e8f0" opacity="0.9">خواتم أنيقة وعصرية للنساء والرجال</text>
+  
+  <!-- Subtle sparkle effects -->
+  <circle cx="100" cy="80" r="2" fill="#ffffff" opacity="0.6"/>
+  <circle cx="500" cy="100" r="1.5" fill="#ffffff" opacity="0.5"/>
+  <circle cx="80" cy="200" r="1" fill="#ffffff" opacity="0.4"/>
+  <circle cx="520" cy="180" r="2.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="120" cy="350" r="1.5" fill="#ffffff" opacity="0.5"/>
+  <circle cx="480" cy="360" r="1" fill="#ffffff" opacity="0.4"/>
+</svg>

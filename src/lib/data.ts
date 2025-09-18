@@ -123,35 +123,33 @@ export async function getProducts(): Promise<Product[]> {
 /**
  * Fetch categories with server-side caching
  */
-export async function getCategories(): Promise<Category[]> {
+export async function getCategories(forceRefresh = false): Promise<Category[]> {
   try {
-    // Check server-side cache first
-    const cachedCategories = await cacheHelpers.getCategories<Category[]>();
-    if (cachedCategories) {
-      return cachedCategories;
-    }
-
-    // Fetch from database
+    // Always fetch fresh data from database to ensure consistency
+    // This prevents issues with deleted categories still appearing
     const { categories } = await getCollections();
     const allCategories = await categories.find({}).toArray();
 
     // Transform to website format
-    const websiteCategories: Category[] = allCategories.map(category => ({
-      id: category._id?.toString() || category.id,
-      _id: category._id?.toString(),
-      name: category.name,
-      nameEn: category.nameEn || category.name,
-      slug: category.slug,
-      description: category.description,
-      image: category.image || '/images/placeholder.svg',
-      icon: category.icon || '📦',
-      color: category.color || '#6366f1',
-      productCount: 0, // Will be calculated separately if needed
-    }));
+    const websiteCategories: Category[] = allCategories.map(category => {
+      const categoryData = {
+        id: category._id?.toString() || category.id,
+        _id: category._id?.toString(),
+        name: category.name,
+        nameEn: category.nameEn || category.name,
+        slug: category.slug,
+        description: category.description,
+        image: category.image || '/images/placeholder.svg',
+        icon: category.icon || '📦',
+        color: category.color || '#6366f1',
+        productCount: 0, // Will be calculated separately if needed
+      };
+      
+      return categoryData;
+    });
 
-    // Cache the result
-    cacheHelpers.setCategories(websiteCategories);
-    
+    // Don't cache categories to ensure fresh data on every request
+    // This prevents deleted categories from appearing due to stale cache
     return websiteCategories;
   } catch (error) {
     console.error('Error fetching categories:', error);

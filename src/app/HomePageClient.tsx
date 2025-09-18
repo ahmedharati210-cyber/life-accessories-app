@@ -9,10 +9,10 @@ import { Product, Category } from '@/types';
 interface HomePageClientProps {
   products: Product[];
   categories: Category[];
-  hotProducts: Product[];
+  featuredProducts: Product[];
 }
 
-export function HomePageClient({ products, categories, hotProducts }: HomePageClientProps) {
+export function HomePageClient({ products, categories, featuredProducts }: HomePageClientProps) {
   const [headerHeight, setHeaderHeight] = useState('h-20');
 
   useEffect(() => {
@@ -32,9 +32,9 @@ export function HomePageClient({ products, categories, hotProducts }: HomePageCl
       {/* Hero Section */}
       <Hero />
       
-      {/* Hot Products Carousel */}
+      {/* Featured Products Carousel */}
       <ProductCarousel
-        products={hotProducts}
+        products={featuredProducts}
         title="المنتجات المميزة"
         description="اكتشف أحدث وأروع المنتجات في مجموعتنا المختارة بعناية"
         autoPlay={true}
