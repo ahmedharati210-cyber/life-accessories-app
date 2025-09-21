@@ -51,15 +51,6 @@ export function DataProvider({ children }: DataProviderProps) {
   const products = productsData?.success ? productsData.data : [];
   const categories = categoriesData?.success ? categoriesData.data : [];
 
-  // Add debug logging to see what's happening
-  console.log('🔍 DataContext Debug:', {
-    productsLoading,
-    categoriesLoading,
-    productsCount: products.length,
-    categoriesCount: categories.length,
-    productsCached: productsData?.success,
-    categoriesCached: categoriesData?.success
-  });
 
 
   const value: DataContextType = {

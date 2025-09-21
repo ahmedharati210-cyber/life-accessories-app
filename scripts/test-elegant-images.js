@@ -65,3 +65,5 @@ function testImageFiles() {
 
 // Run the test
 testImageFiles();
+
+

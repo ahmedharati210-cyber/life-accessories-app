@@ -111,41 +111,47 @@ export default function OrdersPage() {
         
         if (data.success) {
           // Transform database orders to match Order interface
-          const transformedOrders = data.data.map((order: DatabaseOrder) => ({
-            id: order.id || order._id?.toString() || `order-${Date.now()}-${Math.random()}`,
-            orderNumber: order.orderNumber || order.id || order._id?.toString() || `ORD-${Date.now()}`,
-            customer: {
-              name: order.customerName || order.customer || 'Unknown Customer',
-              email: order.customerEmail || order.customerEmail || 'unknown@example.com',
-              phone: order.customerPhone || '+1 (555) 000-0000'
-            },
-            items: order.items || [{
-              name: 'Sample Item',
-              quantity: 1,
-              price: order.total || order.amount || 0,
-              image: '/images/products/placeholder.svg'
-            }],
-            total: order.total || order.amount || 0,
-            status: order.status || 'pending',
-            createdAt: order.createdAt || new Date().toISOString(),
-        shippingAddress: order.shippingAddress || {
-          street: '123 Main St',
-          city: 'Unknown City',
-          area: 'Unknown Area',
-          postalCode: '00000'
-        },
-        // Security data
-        ipAddress: order.ipAddress,
-        userAgent: order.userAgent,
-        riskScore: order.riskScore,
-        securityReason: order.securityReason
-      }));
+          const transformedOrders = data.data.map((order: DatabaseOrder) => {
+            
+            return {
+              id: order.id || order._id?.toString() || `order-${Date.now()}-${Math.random()}`,
+              orderNumber: order.orderNumber || order.id || order._id?.toString() || `ORD-${Date.now()}`,
+              customer: {
+                name: order.customerName || order.customer || 'Unknown Customer',
+                email: order.customerEmail || 'unknown@example.com',
+                phone: order.customerPhone || '+1 (555) 000-0000'
+              },
+              items: order.items || [{
+                name: 'Sample Item',
+                quantity: 1,
+                price: order.total || order.amount || 0,
+                image: '/images/products/placeholder.svg'
+              }],
+              total: order.total || order.amount || 0,
+              status: order.status || 'pending',
+              createdAt: order.createdAt || new Date().toISOString(),
+              shippingAddress: order.shippingAddress || {
+                street: '123 Main St',
+                city: 'Unknown City',
+                area: 'Unknown Area',
+                postalCode: '00000'
+              },
+              // Security data
+              ipAddress: order.ipAddress,
+              userAgent: order.userAgent,
+              riskScore: order.riskScore,
+              securityReason: order.securityReason
+            };
+          });
+          
           setOrders(transformedOrders);
         } else {
           console.error('Failed to fetch orders:', data.error);
+          setOrders([]);
         }
       } catch (error) {
         console.error('Error fetching orders:', error);
+        setOrders([]);
       } finally {
         setLoading(false);
       }
@@ -453,7 +459,14 @@ export default function OrdersPage() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => setSelectedOrder(order)}
+                          onClick={() => {
+                            try {
+                              setSelectedOrder(order);
+                            } catch (error) {
+                              console.error('Error opening order details:', error);
+                              alert('Error opening order details. Please try again.');
+                            }
+                          }}
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
@@ -501,7 +514,7 @@ export default function OrdersPage() {
           <div className="flex min-h-screen items-center justify-center p-4">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75" onClick={() => setSelectedOrder(null)} />
             
-            <div className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full">
+            <div className="relative bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between p-6 border-b border-gray-200">
                 <h2 className="text-xl font-semibold text-gray-900">
                   Order Details - {selectedOrder.orderNumber}
@@ -534,35 +547,47 @@ export default function OrdersPage() {
 
                         {/* Order Items */}
                         <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Order Items</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">Purchased Items</h3>
                   <div className="space-y-3">
-                    {selectedOrder.items.map((item, index) => (
-                      <div key={index} className="flex items-center space-x-4 p-3 border border-gray-200 rounded-lg">
-                        <div className="relative h-12 w-12">
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fill
-                            className="object-cover rounded"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium">{item.name}</p>
-                          <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
-                              </div>
-                        <div className="text-right">
-                          <p className="font-medium">${item.price.toFixed(2)}</p>
-                        </div>
-                            </div>
-                    ))}
-                            </div>
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    <div className="flex justify-between text-lg font-semibold">
-                      <span>Total:</span>
-                      <span>${selectedOrder.total.toFixed(2)}</span>
-                            </div>
+                    {selectedOrder.items && selectedOrder.items.length > 0 ? (
+                      selectedOrder.items.map((item, index) => (
+                        <div key={index} className="flex items-center space-x-4 p-3 border border-gray-200 rounded-lg">
+                          <div className="relative h-16 w-16 flex-shrink-0">
+                            <Image
+                              src={item.image || '/images/products/placeholder.svg'}
+                              alt={item.name}
+                              fill
+                              className="object-cover rounded"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = '/images/products/placeholder.svg';
+                              }}
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-gray-900 truncate">{item.name}</p>
+                            <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+                            <p className="text-sm text-gray-500">Unit Price: ${item.price.toFixed(2)}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="font-medium text-lg">${(item.price * item.quantity).toFixed(2)}</p>
                           </div>
                         </div>
+                      ))
+                    ) : (
+                      <div className="text-center py-8 text-gray-500">
+                        <Package className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+                        <p>No items found for this order</p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <div className="flex justify-between text-lg font-semibold">
+                      <span>Total Amount:</span>
+                      <span>${selectedOrder.total.toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
 
                         {/* Notification Controls */}
                         <div className="border-t pt-6">

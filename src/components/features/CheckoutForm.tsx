@@ -68,6 +68,7 @@ export function CheckoutForm({ areas }: CheckoutFormProps) {
     return Object.keys(validationErrors).length === 0;
   };
 
+
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     
@@ -98,16 +99,8 @@ export function CheckoutForm({ areas }: CheckoutFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate all fields
+    // Quick validation without scrolling for better UX
     if (!validateFormData()) {
-      // Scroll to first error field
-      const firstErrorField = Object.keys(errors)[0];
-      if (firstErrorField) {
-        const element = document.querySelector(`[name="${firstErrorField}"]`);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
       return;
     }
 
@@ -138,6 +131,18 @@ export function CheckoutForm({ areas }: CheckoutFormProps) {
         total
       };
 
+
+      // Validate order data before sending
+      if (!orderData.items || orderData.items.length === 0) {
+        setErrors({ general: 'الحقيبة فارغة، يرجى إضافة منتجات قبل إتمام الطلب' });
+        return;
+      }
+
+      if (!orderData.customer.name || !orderData.customer.phone || !orderData.customer.area) {
+        setErrors({ general: 'يرجى ملء جميع الحقول المطلوبة' });
+        return;
+      }
+
       const response = await fetch('/api/order', {
         method: 'POST',
         headers: {
@@ -146,10 +151,19 @@ export function CheckoutForm({ areas }: CheckoutFormProps) {
         body: JSON.stringify(orderData),
       });
 
-      const result = await response.json();
+      let result;
+      try {
+        result = await response.json();
+      } catch (parseError) {
+        console.error('Failed to parse response as JSON:', parseError);
+        const responseText = await response.text();
+        console.error('Raw response:', responseText);
+        setErrors({ general: 'حدث خطأ في استجابة الخادم' });
+        return;
+      }
 
       if (result.ok && result.id) {
-        clearBag();
+        clearBag(false); // Don't show toast when clearing after successful purchase
         router.push(`/success?id=${result.id}`);
       } else {
         console.error('Order submission failed:', result);

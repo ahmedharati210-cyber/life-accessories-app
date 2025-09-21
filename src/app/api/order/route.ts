@@ -119,7 +119,6 @@ export async function POST(request: NextRequest) {
     
     // Fetch actual product names from database
     const productIds = body.items.map(item => item.id);
-    console.log('Fetching products for IDs:', productIds);
     
     // Convert string IDs to ObjectIds
     const { ObjectId } = await import('mongodb');
@@ -133,7 +132,6 @@ export async function POST(request: NextRequest) {
     }).filter((id): id is InstanceType<typeof ObjectId> => id !== null);
     
     const productDocs = await products.find({ _id: { $in: objectIds } }).toArray();
-    console.log('Found products:', productDocs.map(p => ({ id: p._id.toString(), name: p.name })));
     const productMap = new Map(productDocs.map(p => [p._id.toString(), p]));
     
     const orderData = {
@@ -147,7 +145,6 @@ export async function POST(request: NextRequest) {
           unitPrice: item.unitPrice,
           total: item.qty * item.unitPrice
         };
-        console.log('Item data:', itemData);
         return itemData;
       }),
       customer: {
@@ -217,10 +214,6 @@ export async function POST(request: NextRequest) {
 
       // Send notifications asynchronously (don't wait for them to complete)
       notificationService.sendOrderNotifications(notificationData)
-        .then(({ customerNotification, adminNotification }) => {
-          console.log('Customer notification result:', customerNotification);
-          console.log('Admin notification result:', adminNotification);
-        })
         .catch(error => {
           console.error('Error sending notifications:', error);
         });
@@ -238,11 +231,18 @@ export async function POST(request: NextRequest) {
     console.error('Error processing order:', error);
     console.error('Error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined,
-      name: error instanceof Error ? error.name : undefined
+      stack: error instanceof Error ? error.stack : undefined
     });
+    
+    // Ensure we return a proper error response
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     return NextResponse.json(
-      { ok: false, error: 'حدث خطأ أثناء معالجة الطلب', details: error instanceof Error ? error.message : 'Unknown error' },
+      { 
+        ok: false, 
+        error: 'حدث خطأ أثناء معالجة الطلب',
+        details: errorMessage,
+        timestamp: new Date().toISOString()
+      },
       { status: 500 }
     );
   }

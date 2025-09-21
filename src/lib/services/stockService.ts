@@ -28,11 +28,12 @@ export interface StockHistory {
 export class StockService {
   private static readonly LOW_STOCK_THRESHOLD = 5;
   private static readonly OUT_OF_STOCK_THRESHOLD = 0;
+  private static lastAlertCheck: string | null = null;
 
   /**
-   * Check for low stock alerts and send notifications
+   * Check for low stock alerts and send notifications (only once per day)
    */
-  static async checkLowStockAlerts(): Promise<StockAlert[]> {
+  static async checkLowStockAlerts(sendNotifications: boolean = false): Promise<StockAlert[]> {
     try {
       const { products } = await getCollections();
       const lowStockProducts = await products.find({
@@ -56,8 +57,15 @@ export class StockService {
 
         alerts.push(alert);
 
-        // Send notification
-        await this.sendStockAlert(alert);
+        // Only send notifications if explicitly requested and not sent today
+        if (sendNotifications && this.shouldSendAlert()) {
+          await this.sendStockAlert(alert);
+        }
+      }
+
+      // Update last check time if notifications were sent
+      if (sendNotifications && alerts.length > 0) {
+        this.lastAlertCheck = new Date().toISOString().split('T')[0]; // Store date only
       }
 
       return alerts;
@@ -65,6 +73,14 @@ export class StockService {
       console.error('Error checking low stock alerts:', error);
       return [];
     }
+  }
+
+  /**
+   * Check if we should send alerts (only once per day)
+   */
+  private static shouldSendAlert(): boolean {
+    const today = new Date().toISOString().split('T')[0];
+    return this.lastAlertCheck !== today;
   }
 
   /**

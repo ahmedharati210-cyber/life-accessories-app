@@ -111,3 +111,5 @@ The script automatically maps categories to their elegant images:
 - **Mobile Optimized**: SVG format ensures crisp display on all devices
 
 The new elegant category images will significantly enhance the visual appeal of your website and better represent the quality and sophistication of your jewelry brand.
+
+

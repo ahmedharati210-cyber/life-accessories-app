@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const type = searchParams.get('type');
 
     if (type === 'alerts') {
-      const alerts = await StockService.checkLowStockAlerts();
+      const alerts = await StockService.checkLowStockAlerts(false); // Don't send notifications
       return NextResponse.json({ success: true, alerts });
     }
 

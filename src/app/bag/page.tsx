@@ -25,8 +25,8 @@ export default function BagPage() {
 
   const handleClearBag = async () => {
     setIsClearing(true);
-    // Add a small delay for better UX
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Reduced delay for snappier experience
+    await new Promise(resolve => setTimeout(resolve, 200));
     clearBag();
     setIsClearing(false);
   };

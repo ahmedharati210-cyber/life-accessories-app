@@ -116,3 +116,5 @@ async function updateCategoryImages() {
 
 // Run the update
 updateCategoryImages();
+
+

@@ -184,7 +184,7 @@ export interface BagActions {
   addItem: (product: Product, quantity?: number, selectedVariant?: ProductVariant, selectedOptions?: Record<string, string>) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
-  clearBag: () => void;
+  clearBag: (showToast?: boolean) => void;
   getItemQuantity: (productId: string) => number;
   isLoaded: boolean;
 }

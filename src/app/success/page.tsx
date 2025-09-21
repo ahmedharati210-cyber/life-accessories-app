@@ -32,6 +32,21 @@ function SuccessContent() {
     return area?.name || areaId;
   };
 
+  // Generate WhatsApp message with order details
+  const generateWhatsAppMessage = () => {
+    const orderNumber = orderDetails?.orderNumber || orderId || 'غير محدد';
+    const customerName = orderDetails?.customer.name || 'غير محدد';
+    const total = orderDetails?.total || 0;
+    
+    return `مرحباً، أريد الاستفسار عن طلبي:
+
+📋 رقم الطلب: ${orderNumber}
+👤 الاسم: ${customerName}
+💰 المبلغ: ${total} د.ل
+
+شكراً لكم`;
+  };
+
   // Function to preview receipt
   const previewReceipt = () => {
     if (!orderDetails) return;
@@ -286,7 +301,7 @@ function SuccessContent() {
         if (data.success) {
           const order = data.data.find((o: { _id?: string; id?: string }) => o.id === orderId || o._id === orderId);
           if (order) {
-            setOrderDetails({
+            const orderDetails = {
               id: order.id || order._id || orderId,
               orderNumber: order.orderNumber,
               status: order.status || 'pending',
@@ -298,7 +313,9 @@ function SuccessContent() {
                 area: order.shippingAddress?.area || order.customer?.address?.area || 'Unknown'
               },
               createdAt: order.createdAt || new Date().toISOString()
-            });
+            };
+            
+            setOrderDetails(orderDetails);
           }
         }
       } catch (error) {
@@ -343,11 +360,9 @@ function SuccessContent() {
               شكراً لك على ثقتك بنا. سنتواصل معك قريباً لتأكيد الطلب
             </p>
             
-            {orderDetails && (
-              <Badge variant="secondary" className="text-sm sm:text-lg px-3 sm:px-4 py-1 sm:py-2">
-                رقم الطلب: {orderDetails.orderNumber || orderId}
-              </Badge>
-            )}
+            <Badge variant="secondary" className="text-sm sm:text-lg px-3 sm:px-4 py-1 sm:py-2">
+              رقم الطلب: {orderDetails?.orderNumber || orderId || 'جاري التحميل...'}
+            </Badge>
           </motion.div>
 
           {/* Order Details */}
@@ -431,6 +446,7 @@ function SuccessContent() {
                     </p>
                   </div>
                   
+
                   {/* Contact Buttons */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <Button 
@@ -439,7 +455,7 @@ function SuccessContent() {
                       className="bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
                     >
                       <a 
-                        href={`https://wa.me/218919900049?text=مرحباً، أريد الاستفسار عن طلبي رقم: ${orderDetails?.orderNumber || orderId || 'غير محدد'} - ${orderDetails?.customer.name || 'غير محدد'}`}
+                        href={`https://wa.me/218919900049?text=${encodeURIComponent(generateWhatsAppMessage())}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >

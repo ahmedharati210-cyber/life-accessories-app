@@ -98,7 +98,7 @@ export function BagProvider({ children }: BagProviderProps) {
             {
               id: `update-${itemId}`,
               icon: '🛍️',
-              duration: 2000,
+              duration: 1500,
             }
           );
         }, 0);
@@ -126,7 +126,7 @@ export function BagProvider({ children }: BagProviderProps) {
             {
               id: `add-${itemId}`,
               icon: '✅',
-              duration: 2000,
+              duration: 1500,
             }
           );
         }, 0);
@@ -162,7 +162,7 @@ export function BagProvider({ children }: BagProviderProps) {
             {
               id: `remove-${productId}`,
               icon: '🗑️',
-              duration: 2000,
+              duration: 1500,
             }
           );
         }, 0);
@@ -185,14 +185,16 @@ export function BagProvider({ children }: BagProviderProps) {
     );
   }, [removeItem]);
 
-  const clearBag = useCallback(() => {
+  const clearBag = useCallback((showToast: boolean = true) => {
     setItems([]);
-    setTimeout(() => {
-      toast.success('تم مسح الحقيبة بالكامل', {
-        icon: '🧹',
-        duration: 2000,
-      });
-    }, 0);
+    if (showToast) {
+      setTimeout(() => {
+        toast.success('تم مسح الحقيبة بالكامل', {
+          icon: '🧹',
+          duration: 1500,
+        });
+      }, 0);
+    }
   }, []);
 
   const getItemQuantity = useCallback((productId: string): number => {
