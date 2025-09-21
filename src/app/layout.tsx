@@ -102,6 +102,19 @@ export default function RootLayout({
         <meta name="theme-color" content="#667eea" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <meta name="color-scheme" content="light only" />
+        
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JH9YKR54MV"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-JH9YKR54MV');
+            `,
+          }}
+        />
       </head>
       <body className={`${cairo.variable} ${playfair.variable} ${inter.variable} antialiased`}>
         <PerformanceOptimizer />
