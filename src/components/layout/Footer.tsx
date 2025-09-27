@@ -124,7 +124,16 @@ export function Footer() {
               © {currentYear} Life Accessories. جميع الحقوق محفوظة.
             </p>
             <p className="text-sm text-muted-foreground text-right">
-              Created by <span className="font-bold text-purple-600">Harati</span>
+              Created by <a 
+                href="https://www.facebook.com/profile.php?id=61580630652651" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="font-bold text-purple-600 hover:text-purple-800 transition-colors duration-200 cursor-pointer"
+                style={{ pointerEvents: 'auto' }}
+                onClick={() => window.open('https://www.facebook.com/profile.php?id=61580630652651', '_blank')}
+              >
+                Harati
+              </a>
             </p>
           </div>
         </div>
