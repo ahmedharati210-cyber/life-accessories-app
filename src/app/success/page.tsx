@@ -428,7 +428,6 @@ function SuccessContent() {
                 <h3 className="font-semibold mb-2 text-blue-900 text-sm sm:text-base">ماذا يحدث بعد ذلك؟</h3>
                 <div className="text-xs sm:text-sm text-blue-800 space-y-1">
                   <p>• سنتواصل معك خلال 24 ساعة لتأكيد الطلب</p>
-                  <p>• سيتم تجهيز طلبك وتوصيله خلال 2-3 أيام عمل</p>
                   <p>• يمكنك دفع المبلغ عند استلام الطلب</p>
                 </div>
               </CardContent>
